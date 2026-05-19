@@ -1,2 +1,2 @@
-# Comp-Sci-CPT---Ella-Chan-Chloe-Chui-Vicky-Wang
+# Computer Science CPT---by Ella-Chan-Chloe-Chui and Vicky-Wang
 Escape room game
