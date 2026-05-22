@@ -9,15 +9,15 @@ public class JIntroductionScreen extends JPanel{
 	BufferedImage imgIntroduction = null;
 	
 	BufferedImage imgMouse = null;
-	double dblMouseX;
-	double dblMouseY;
+	int intMouseX = 470;
+	int intMouseY = 430;
 	
 	//Methods
 	public void paintComponent(Graphics g){
         super.paintComponent(g);
 			//Draw Background
 			g.drawImage(imgIntroduction, 0, 0, null);
-			g.drawImage(imgMouse,700, 500, null);
+			g.drawImage(imgMouse, intMouseX, intMouseY, null);
     }
     
     //Constructor
@@ -25,7 +25,7 @@ public class JIntroductionScreen extends JPanel{
 		super();
 		try{
 			imgIntroduction = ImageIO.read(new File("images/Introduction Background.png"));
-			imgMouse = ImageIO.read(new File("images/Target Cursor"));
+			imgMouse = ImageIO.read(new File("images/Target Cursor.png"));
 		}catch(IOException e){
 			System.out.println("Unable to load image");
 		}
