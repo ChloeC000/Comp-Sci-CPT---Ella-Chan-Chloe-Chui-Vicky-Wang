@@ -1,8 +1,7 @@
 //Introduction View
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.*;
-import javax.swing.event.*;
+import javax.swing.*;
 
 public class IntroductionView implements ActionListener, MouseListener, MouseMotionListener{
 	//Properties to build the panel
@@ -161,5 +160,9 @@ public class IntroductionView implements ActionListener, MouseListener, MouseMot
 		theTimer.start();
 		
 		
+	}
+	public static void main(String[] args){
+		new IntroductionView();
+	
 	}
 }
