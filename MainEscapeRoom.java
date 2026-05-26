@@ -6,10 +6,8 @@ Version: 1.0
 
 Draw the images required for the starting screen
  */
-import java.awt.*;
-import javax.swing.*;
 import java.awt.event.*;
-import javax.swing.event.*;
+import javax.swing.*;
 
 public class MainEscapeRoom implements ActionListener{
 	//Properties
@@ -17,7 +15,7 @@ public class MainEscapeRoom implements ActionListener{
 	Timer theTimer = new Timer(1000/60, this);
 	
 	//Network Connection
-	SuperSocketMaster SSM = null;
+	SuperSocketMaster ssm = null;
 	
 	//Introduction Panel
 	IntroductionView IntroductionPanel = new IntroductionView();
