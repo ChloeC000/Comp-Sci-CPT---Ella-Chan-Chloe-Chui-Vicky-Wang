@@ -32,7 +32,6 @@ public class IntroductionView implements ActionListener, MouseListener, MouseMot
 			//Check if connection has occured
 			if (blnHostConnected == true || blnClientConnected == true){
 				blnConnectionOccured = true;
-				System.out.println("Connected");
 			}
 			if(blnConnectionOccured == true){
 				//Trigger pop up
@@ -49,9 +48,6 @@ public class IntroductionView implements ActionListener, MouseListener, MouseMot
 			btnJoin.setText(ssm.getMyAddress());	// Show what the address of the host computer is
 			blnHostConnected = true;				// Let code know that host has connected
 			
-			//Set both button to false
-			btnHost.setEnabled(false);
-			btnJoin.setEnabled(false);
 			System.out.println("Address: "+ssm.getMyAddress());
 			
 		}else if(evt.getSource() == btnJoin){
@@ -68,14 +64,16 @@ public class IntroductionView implements ActionListener, MouseListener, MouseMot
 			
 			//Let code know that the client has connected
 			blnClientConnected = true;
-			System.out.println("Joined game on localhost.");
+			System.out.println("Joined game.");
 		}
 		
 		//Chat related action listeners
 		if(evt.getSource() == ChatInput){
 			System.out.println("Field event triggered");
-			ssm.sendText(ChatInput.getText());
+			ssm.sendText(ssm.getMyHostname()+": "+ChatInput.getText());
+			ChatArea.append(ssm.getMyHostname()+": "+ChatInput.getText()+"\n");
 			ChatInput.setText("");
+
 		}else if(evt.getSource() == ssm){
 			String strLine = ssm.readText();
 			ChatArea.append(strLine + "\n");
@@ -161,8 +159,5 @@ public class IntroductionView implements ActionListener, MouseListener, MouseMot
 		
 		
 	}
-	public static void main(String[] args){
-		new IntroductionView();
 	
-	}
 }
