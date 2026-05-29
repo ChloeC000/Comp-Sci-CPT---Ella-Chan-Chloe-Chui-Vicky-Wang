@@ -13,6 +13,8 @@ public class Path1Model{
 	String strLine = "";
 	BufferedReader SequenceFile;
 	
+	//Unlockables
+	
 	//Methods
 	public void loadArray(){
 		int intCount1;
@@ -33,6 +35,7 @@ public class Path1Model{
 			}
 		}
 	}
+	
 	
 	
 	//Constructor
