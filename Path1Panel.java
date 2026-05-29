@@ -13,6 +13,10 @@ public class Path1Panel extends JPanel implements ActionListener{
 	Path1Model Model1 = new Path1Model();
 	Timer theTimer = new Timer(1000/60, this);
 	
+	String strNextObject = "";		//To know what object to unlock next
+	
+	//Unlockables
+	
 	//Objects
 	JButton btnDeerBody = new JButton(new ImageIcon("images/Deer Body.png"));
 	
@@ -57,8 +61,8 @@ public class Path1Panel extends JPanel implements ActionListener{
 		TheTextArea.setForeground(Color.WHITE);
 		TheTextArea.setEditable(false);
 		TheTextArea.setOpaque(false); 
-		//imgTextBox.setVisible(false);			//Make both invisible until they are needed
-		//TheTextArea.setVisible(false);
+		imgTextBox.setVisible(false);			//Make both invisible until they are needed
+		TheTextArea.setVisible(false);
 		this.add(imgTextBox);
 		this.add(TheTextArea);
 		

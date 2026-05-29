@@ -13,12 +13,15 @@ public class Path1Model{
 	String strLine = "";
 	BufferedReader SequenceFile;
 	
-	//Unlockables
+	int intCount1;
+	int intCount2;
+	boolean blnMatch = false;
+	
+	boolean blnSolved = false;
 	
 	//Methods
+	//Load csv file into array
 	public void loadArray(){
-		int intCount1;
-		int intCount2;
 		for(intCount1 = 0; intCount1< 7; intCount1++){
 			//Read each line once than split
 			try{
@@ -28,13 +31,34 @@ public class Path1Model{
 				System.out.println("Could not read line");
 			}
 			strSplit = strLine.split(",");
-			//loop within a loop to run 20 times for each column
+			//loop within a loop to run 7 times for each column
 			for(intCount2 = 0; intCount2 < 7; intCount2++){
 				strSequence[intCount1][intCount2] = strSplit[intCount2];
 				System.out.println("Row "+intCount1 +": "+strSequence[intCount1][intCount2]);
 			}
 		}
 	}
+	
+	//Read the row of the array and decide what puzzle/clue to do based on the csv file
+	public void AssignAction(String strObject){
+		//Read the first column of each row and match the object to it.
+		intCount1 = -1;
+		while(blnMatch == false){
+			intCount1 = intCount1 + 1;
+			if(strSequence[intCount1][0].equalsIgnoreCase(strObject)){
+				blnMatch = true;
+			}
+		}
+		//Look if there is a puzzle assigned for that row
+		if(!strSequence[intCount1][4].equals("none")){
+			//Identify and execute puzzle
+		}else{
+			blnSolved = true;
+		}
+	}
+	
+	//If puzzle has been solved or their is no puzzle provide the clue
+	//Also permanently unlock it
 	
 	
 	
