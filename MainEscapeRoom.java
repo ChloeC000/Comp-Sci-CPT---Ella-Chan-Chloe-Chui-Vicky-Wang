@@ -6,8 +6,11 @@ Version: 1.0
 
 Draw the images required for the starting screen
  */
-import java.awt.event.*;
+import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
 
 public class MainEscapeRoom implements ActionListener{
 	//Properties
@@ -19,6 +22,7 @@ public class MainEscapeRoom implements ActionListener{
 	
 	//Introduction Panel
 	IntroductionView IntroductionPanel = new IntroductionView();
+	Path1Panel Panel1 = new Path1Panel();
 	
 	
 	//Methods
@@ -30,7 +34,7 @@ public class MainEscapeRoom implements ActionListener{
 	//Constructor
 	public MainEscapeRoom(){
 		
-		theFrame.setContentPane(IntroductionPanel.IntroPanel);
+		theFrame.setContentPane(Panel1);
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         theFrame.pack();
         theFrame.setVisible(true);

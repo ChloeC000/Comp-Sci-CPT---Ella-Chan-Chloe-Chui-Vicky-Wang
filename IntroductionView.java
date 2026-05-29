@@ -75,6 +75,7 @@ public class IntroductionView implements ActionListener, MouseListener, MouseMot
 			ChatInput.setText("");
 
 		}else if(evt.getSource() == ssm){
+			System.out.println("recieved text");
 			String strLine = ssm.readText();
 			ChatArea.append(strLine + "\n");
 		}
@@ -159,5 +160,6 @@ public class IntroductionView implements ActionListener, MouseListener, MouseMot
 		
 		
 	}
+	
 	
 }
