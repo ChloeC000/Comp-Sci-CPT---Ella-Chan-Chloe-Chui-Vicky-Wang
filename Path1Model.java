@@ -30,7 +30,7 @@ public class Path1Model{
 				strLine = "blank,blank,blank, blank, blank, blank, blank";
 				System.out.println("Could not read line");
 			}
-			strSplit = strLine.split(",");
+			strSplit = strLine.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 			//loop within a loop to run 7 times for each column
 			for(intCount2 = 0; intCount2 < 7; intCount2++){
 				strSequence[intCount1][intCount2] = strSplit[intCount2];
@@ -40,7 +40,7 @@ public class Path1Model{
 	}
 	
 	//Read the row of the array and decide what puzzle/clue to do based on the csv file
-	public void AssignAction(String strObject){
+	public int AssignRow(String strObject){
 		//Read the first column of each row and match the object to it.
 		intCount1 = -1;
 		while(blnMatch == false){
@@ -49,16 +49,19 @@ public class Path1Model{
 				blnMatch = true;
 			}
 		}
+		blnMatch = false;
+		return intCount1;
+	}
+	
+	public boolean AssignAction(int intRow){
 		//Look if there is a puzzle assigned for that row
-		if(!strSequence[intCount1][4].equals("none")){
+		if(!strSequence[intRow][4].equals("none")){
 			//Identify and execute puzzle
 		}else{
 			blnSolved = true;
 		}
+		return blnSolved;
 	}
-	
-	//If puzzle has been solved or their is no puzzle provide the clue
-	//Also permanently unlock it
 	
 	
 	

@@ -7,15 +7,18 @@ import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
 
-public class Path1Panel extends JPanel implements ActionListener{
+public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	//Properties
 	BufferedImage imgPath1Background = null;
 	Path1Model Model1 = new Path1Model();
 	Timer theTimer = new Timer(1000/60, this);
 	
 	String strNextObject = "";		//To know what object to unlock next
+	int intObjectRow;
 	
 	//Unlockables
+	boolean blnSolved = false;
+	boolean blnDeerBody = false;
 	
 	//Objects
 	JButton btnDeerBody = new JButton(new ImageIcon("images/Deer Body.png"));
@@ -33,9 +36,39 @@ public class Path1Panel extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent evt){
 		this.repaint();
+		//If the deer body button is clicked: This is the first object
 		if(evt.getSource() == btnDeerBody){
+			intObjectRow = Model1.AssignRow("deer body");		//Figure out on which line of the csv file the object is on
+			System.out.println(intObjectRow);
+			
+			if(blnDeerBody != true){
+				blnDeerBody = Model1.AssignAction(intObjectRow); 	//Check if the object has a puzzle if it has never been clicked before
+				System.out.println(blnDeerBody);
+			}
+			
+			if(blnDeerBody == true){ 							//After getting a up to date status, check if it is okay to display the clue
+				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 		//If so, get clue for the array
+				imgTextBox.setVisible(true);				
+				TheTextArea.setVisible(true);
+			}
 			
 		}
+		
+	}
+	public void mouseClicked(MouseEvent evt){
+		if (evt.getSource() == this && imgTextBox.isShowing()){	//If you click the mouse while the textbox is showing, make it invisible again
+			TheTextArea.setText(""); 		
+			imgTextBox.setVisible(false);				
+			TheTextArea.setVisible(false);
+		}
+	}
+	public void mousePressed(MouseEvent evt){
+	}
+	public void mouseReleased(MouseEvent evt){
+	}
+	public void mouseEntered(MouseEvent evt){	
+	}
+	public void mouseExited(MouseEvent evt){
 	}
 	
 	//Constructor
@@ -43,6 +76,7 @@ public class Path1Panel extends JPanel implements ActionListener{
 		//Set panel parameters
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(1280, 720));
+		this.addMouseListener(this);
 		
 		//Load background
 		try{
@@ -60,6 +94,7 @@ public class Path1Panel extends JPanel implements ActionListener{
 		TheTextArea.setFont(new Font("Arial", Font.PLAIN, 24));
 		TheTextArea.setForeground(Color.WHITE);
 		TheTextArea.setEditable(false);
+		TheTextArea.setLineWrap(true);
 		TheTextArea.setOpaque(false); 
 		imgTextBox.setVisible(false);			//Make both invisible until they are needed
 		TheTextArea.setVisible(false);
