@@ -1,7 +1,7 @@
-deer body,440,558,none,none,"You examine the body of the deer, it has long grown cold. You one find bullet fragment",rifle
+deer body,440,558,none,none,"You examine the body of the deer, but it has long grown cold. You find one bullet fragment lodged in its neck.",rifle
 rifle,243,513,none,none,"clue", bag
 bag,379,380,none,none,"clue", deer antlers
 deer antlers,469,544,antlers,"answer","clue", rabbit
-rabbit, 749, 644, none, none, "clue", snare
-snare, 922, 252, none, none, "clue", tree burrow
-tree burrow,100,100, picture, "answer", "clue", end
+rabbit, 749, 644,none,none,"clue", snare
+snare, 922, 252,none, none,"clue", tree burrow
+tree burrow,100,100,picture,"answer", "clue", end
