@@ -11,19 +11,19 @@ public class CPTHelp extends JPanel implements ActionListener{
 	BufferedImage imgBackground = null;
 	BufferedImage imgTitle = null;
 	Timer theTimer = new Timer(1000/48, this);
-	private int intTitleX;
+	private int intTitleY;
 	
 	// Methods
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.drawImage(imgBackground, 0, 0, null);
-		g.drawImage(imgTitle, intTitleX, 50, null);
+		g.drawImage(imgTitle, 960, intTitleY, null);
 	}
 	// Change the text and logo X, Y location and animate the help description image
 	public void actionPerformed(ActionEvent evt){
 		if(evt.getSource() == theTimer){
-			intTitleX = intTitleX - 1;
-			if(intTitleX == -1440){
+			intTitleY = intTitleY + 1;
+			if(intTitleY == 450){
 				theTimer.stop();
 			}
 			repaint();
@@ -31,7 +31,7 @@ public class CPTHelp extends JPanel implements ActionListener{
 	}
 	public void Reset(){
 		theTimer.start();
-		intTitleX = 0;
+		intTitleY = 0;
 	}
 	
 	// Constructors
@@ -39,8 +39,8 @@ public class CPTHelp extends JPanel implements ActionListener{
 		super();
 		// Load the backgroup image and the help description image
 		try{
-			imgBackground = ImageIO.read(new File("help.png"));
-			imgTitle = ImageIO.read(new File("HelpTitle.png"));
+			imgBackground = ImageIO.read(new File("Help Page.png"));
+			imgTitle = ImageIO.read(new File("Help Title.png"));
 		}catch(IOException e){
 			System.out.println("Unable to load image");
 		}		
