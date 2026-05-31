@@ -160,7 +160,7 @@ public class NetPanel implements ActionListener{
         
         // 😀 Grinning button
         grinningBut = new JButton();        
-        grinningIcon = new ImageIcon("Grinning.png");
+        grinningIcon = new ImageIcon("./Images/Grinning.png");
 		grinningBut.setIcon(grinningIcon);       
         grinningBut.setBounds(0, 560, 50, 25);
         grinningBut.addActionListener(this);
@@ -168,7 +168,7 @@ public class NetPanel implements ActionListener{
         
         // 😆 Squinting button
         squintingBut = new JButton();
-        squintingIcon = new ImageIcon("Squinting.png");
+        squintingIcon = new ImageIcon("./Images/Squinting.png");
 		squintingBut.setIcon(squintingIcon);      
         squintingBut.setBounds(50, 560, 50, 25);
         squintingBut.addActionListener(this);
@@ -176,7 +176,7 @@ public class NetPanel implements ActionListener{
         
         // 🤣 Laughing button
         laughingBut = new JButton();
-        laughingIcon = new ImageIcon("Laughing.png");
+        laughingIcon = new ImageIcon("./Images/Laughing.png");
         laughingBut.setIcon(laughingIcon); 
         laughingBut.setBounds(100, 560, 50, 25);
         laughingBut.addActionListener(this);
@@ -184,7 +184,7 @@ public class NetPanel implements ActionListener{
         
         // 😍 Heart-eyes button
         hearteyesBut = new JButton();
-        hearteyesIcon = new ImageIcon("Heart-eyes.png");
+        hearteyesIcon = new ImageIcon("./Images/Heart-eyes.png");
         hearteyesBut.setIcon(hearteyesIcon); 
         hearteyesBut.setBounds(150, 560, 50, 25);
         hearteyesBut.addActionListener(this);
@@ -192,7 +192,7 @@ public class NetPanel implements ActionListener{
         
         // 💯 Hundred points button
         hundredBut = new JButton();
-        hundredIcon = new ImageIcon("Hundred.png");
+        hundredIcon = new ImageIcon("./Images/Hundred.png");
         hundredBut.setIcon(hundredIcon); 
         hundredBut.setBounds(200, 560, 50, 25);
         hundredBut.addActionListener(this);
@@ -200,7 +200,7 @@ public class NetPanel implements ActionListener{
         
         // 👍 Thumbs button
         thumbsBut = new JButton();
-        thumbsIcon = new ImageIcon("Thumbs.png");
+        thumbsIcon = new ImageIcon("./Images/Thumbs.png");
         thumbsBut.setIcon(thumbsIcon); 
         thumbsBut.setBounds(250, 560, 50, 25);
         thumbsBut.addActionListener(this);
