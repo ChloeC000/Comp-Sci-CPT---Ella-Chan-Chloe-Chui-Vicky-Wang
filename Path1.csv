@@ -1,7 +1,7 @@
 deer body,440,558,none,none,"You examine the body of the deer, it's still alive. You find one bullet              fragment lodged in its neck.",rifle
 rifle,243,480,none,none,"You examine the rifle closely, a small inscription on the handle is scratched out but you can make out what seems to be initials. They seem strangely     familiar. You take the rifle with you, there are no bullets but it seems intimidating.",bag
-bag,490,225,none,none,"Mustering up your courage, you venture through the thick fog in the hopes of finding something useful in the bag. Your efforts are rewarded, you find a key.", rabbit
-rabbit, 749, 644,none,none,"clue",tree burrow
-tree burrow,100,100,picture,"answer","clue",snare
+bag,490,225,none,none,"Mustering up your courage, you venture through the thick fog in the hopes of finding something useful in the bag. You find a rabbit plush but its been   torn up.",hare
+hare,104,614,cards,answer,"The hare's hat is quite dapper, it reminds you of a magician. An image of a tree hole comes to mind. Is it telaphathy or just your imagination?",tree burrow
+tree burrow,100,100,none,none,"clue",snare
 snare, 922, 252,none, none,"clue",deer
-deer,469,544,antlers,"answer","clue", rabbit
+deer,469,544,antlers,"answer","clue", end

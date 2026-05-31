@@ -17,7 +17,7 @@ public class Path1Model{
 	int intCount2;
 	boolean blnMatch = false;
 	
-	boolean blnSolved = false;
+	boolean blnPuzzle = false;
 	
 	//Methods
 	//Load csv file into array
@@ -52,17 +52,17 @@ public class Path1Model{
 		blnMatch = false;
 		return intCount1;
 	}
-	
 	public boolean AssignAction(int intRow){
 		//Look if there is a puzzle assigned for that row
 		if(!strSequence[intRow][4].equals("none")){
-			//Identify and execute puzzle
+			if (strSequence[intRow][4].equals("cards")){
+				blnPuzzle = false;
+			}
 		}else{
-			blnSolved = true;
+			blnPuzzle = true;
 		}
-		return blnSolved;
+		return blnPuzzle;
 	}
-	
 	
 	
 	//Constructor
