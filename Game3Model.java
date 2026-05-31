@@ -8,9 +8,9 @@ public class Game3Model{
 	public void GetData(){
 		BufferedReader data = null;
 		try{
-				data = new BufferedReader(new FileReader("Game3Data.txt"));
+				data = new BufferedReader(new FileReader("Game3Data.csv"));
 		}catch(FileNotFoundException e){
-				System.out.println("Game3Data.txt not found");
+				System.out.println("Game3Data.csv not found");
 		}
 	}
 

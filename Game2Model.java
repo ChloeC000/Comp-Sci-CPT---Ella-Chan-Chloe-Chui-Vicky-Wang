@@ -12,9 +12,9 @@ public class Game2Model{
 	public void GetData(){
 		BufferedReader data = null;
 		try{
-				data = new BufferedReader(new FileReader("Game2Data.txt"));
+				data = new BufferedReader(new FileReader("Game2Data.csv"));
 		}catch(FileNotFoundException e){
-				System.out.println("Game2Data.txt not found");
+				System.out.println("Game2Data.csv not found");
 		}
 		intBeat1 = (int)(Math.random() * 5 + 1); 
 		intBeat2 = (int)(Math.random() * 5 + 1); 
