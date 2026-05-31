@@ -18,7 +18,7 @@ public class MainEscapeRoom implements ActionListener{
 	Timer theTimer = new Timer(1000/60, this);
 	
 	//Network Connection
-	SuperSocketMaster ssm = null;
+	NetPanel ConnectionPanel = new NetPanel();
 	
 	//Introduction Panel
 	IntroductionView IntroductionPanel = new IntroductionView();
@@ -33,6 +33,7 @@ public class MainEscapeRoom implements ActionListener{
 	
 	//Constructor
 	public MainEscapeRoom(){
+		
 		
 		theFrame.setContentPane(Panel1);
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
