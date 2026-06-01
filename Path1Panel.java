@@ -22,12 +22,14 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	boolean blnHunting = false;
 	boolean blnBag = false;
 	boolean blnHare = false;
+	boolean blnBurrow = false;
 	
 	//Mark that the object has been completed
 	boolean DeerComplete = false;
 	boolean HuntingComplete = false;
 	boolean BagComplete = false;
-	boolean blnHareComplete = false;
+	boolean HareComplete = false;
+	boolean BurrowComplete = false;
 
 	//Objects
 	JButton btnDeerBody = new JButton(new ImageIcon("images/Deer Body.png"));
@@ -35,6 +37,7 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	JButton btnBag = new JButton(new ImageIcon("images/Bag1.png"));
 	JButton btnHare = new JButton(new ImageIcon("images/Hare.png"));
 	JLabel HatLabel = new JLabel(new ImageIcon("images/Hat.png"));
+	JButton btnBurrow = new JButton(new ImageIcon("images/Tree Hole.png"));
 	
 	//Text Area where clues are given
 	JTextArea TheTextArea = new JTextArea("");
@@ -198,13 +201,30 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
-				if (blnHareComplete == false){
+				if (HareComplete == false){
 					strNextObject = Model1.strSequence[intObjectRow][6];
-					blnHareComplete = true;
+					HareComplete = true;
 				}
 			}
 		 }
 		 
+		 if(evt.getSource() == btnBurrow && ActionEnabled == true){
+			if(strNextObject.equals("tree burrow") || blnBurrow == true){	//What to do if the object has been unlocked
+				intObjectRow = Model1.AssignRow("tree burrow");
+				blnBurrow = Model1.AssignAction(intObjectRow);
+				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 
+				imgTextBox.setVisible(true);				
+				TheTextArea.setVisible(true);
+				if(BurrowComplete == false){
+					strNextObject = Model1.strSequence[intObjectRow][6];	
+					BurrowComplete = true;
+				}	
+			}else{														//If the object has not been unlocked, give alternate clue
+				TheTextArea.setText("You can see the shell of some acorns hidden in the tree crevice, the owner    isn't home."); 		
+				imgTextBox.setVisible(true);				
+				TheTextArea.setVisible(true);
+			}			
+		 }
 		 //If the cards are clicked
 		 if(evt.getSource() == btnExitCards){
 			 //Enable other buttons again and disable the card puzzle
@@ -427,7 +447,12 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 		HatLabel.setVisible(false);
 		this.add(HatLabel);
 		this.add(btnHare);
-		
+		//Tree Hole/Burrow
+		btnBurrow.setBounds(Integer.parseInt(Model1.strSequence[4][1]), Integer.parseInt(Model1.strSequence[4][2]),44, 70);
+		btnBurrow.setContentAreaFilled(false);
+		btnBurrow.setBorderPainted(false);
+		btnBurrow.addActionListener(this);
+		this.add(btnBurrow);
 		////////////////////
 		//The Cards Puzzle//
 		////////////////////

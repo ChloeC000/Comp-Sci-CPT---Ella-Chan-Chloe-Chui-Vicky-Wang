@@ -16,7 +16,6 @@ public class Path1Model{
 	int intCount1;
 	int intCount2;
 	boolean blnMatch = false;
-	
 	boolean blnPuzzle = false;
 	
 	//Methods
