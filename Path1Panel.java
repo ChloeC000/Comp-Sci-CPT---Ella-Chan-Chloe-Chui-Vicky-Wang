@@ -23,6 +23,8 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	boolean blnBag = false;
 	boolean blnHare = false;
 	boolean blnBurrow = false;
+	boolean blnSquirrel = false;
+	boolean blnDeerStanding = false;
 	
 	//Mark that the object has been completed
 	boolean DeerComplete = false;
@@ -30,6 +32,9 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	boolean BagComplete = false;
 	boolean HareComplete = false;
 	boolean BurrowComplete = false;
+	boolean SquirrelComplete = false;
+	boolean TransitionComplete = false;
+	boolean DeerStandingComplete = false;
 
 	//Objects
 	JButton btnDeerBody = new JButton(new ImageIcon("images/Deer Body.png"));
@@ -38,14 +43,17 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	JButton btnHare = new JButton(new ImageIcon("images/Hare.png"));
 	JLabel HatLabel = new JLabel(new ImageIcon("images/Hat.png"));
 	JButton btnBurrow = new JButton(new ImageIcon("images/Tree Hole.png"));
+	JButton btnSquirrel = new JButton(new ImageIcon("images/Squirrel.png"));
+	JLabel TransitionScreen = new JLabel(new ImageIcon("images/Transition Screen.png"));
+	JButton btnDeerStand = new JButton(new ImageIcon("images/Deer Standing.png"));
 	
 	//Text Area where clues are given
 	JTextArea TheTextArea = new JTextArea("");
 	JLabel imgTextBox = new JLabel(new ImageIcon("images/Text Box.png"));
 	
 	
-	JButton btnExitCards = new JButton(new ImageIcon("images/Exit Button.png"));
 	//Cards Puzzle
+	JButton btnExitCards = new JButton(new ImageIcon("images/Exit Button.png"));
 	int intCardNum;
 	JButton btnCard1 = new JButton(new ImageIcon("images/cards/Card1.png"));
 	JButton btnCard2 = new JButton(new ImageIcon("images/cards/Card2.png"));
@@ -68,6 +76,14 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.drawImage(imgPath1Background, 0, 0, null);
+	}
+	
+	//Transition
+	public void Transition(){
+		TransitionScreen.setVisible(true);
+		TheTextArea.setText("When you look back, you watch the deer stagger to its feet. Its movement is sluggish and it seems wary but you can sense it wants to convey something."); 		
+		imgTextBox.setVisible(true);				
+		TheTextArea.setVisible(true);
 	}
 	
 	//Puzzles
@@ -176,6 +192,7 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 				if(BagComplete == false){
 					strNextObject = Model1.strSequence[intObjectRow][6];	
 					BagComplete = true;
+					//Transition
 				}	
 			}else{														//If the object has not been unlocked, give alternate clue
 				TheTextArea.setText("You spot a bag in the distant fog, it doesn't seem worth it to go for yet."); 		
@@ -220,10 +237,47 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 					BurrowComplete = true;
 				}	
 			}else{														//If the object has not been unlocked, give alternate clue
-				TheTextArea.setText("You can see the shell of some acorns hidden in the tree crevice, the owner    isn't home."); 		
+				TheTextArea.setText("You can see the shell of some acorns hidden in the tree crevice, the owner  isn't home."); 		
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 			}			
+		 }
+		  if(evt.getSource() == btnSquirrel && ActionEnabled == true){
+			if(strNextObject.equals("squirrel") || blnSquirrel == true){	
+				intObjectRow = Model1.AssignRow("squirrel");
+				blnSquirrel = Model1.AssignAction(intObjectRow);
+				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 
+				imgTextBox.setVisible(true);				
+				TheTextArea.setVisible(true);
+				if(SquirrelComplete == false){
+					strNextObject = Model1.strSequence[intObjectRow][6];	
+					SquirrelComplete = true;
+				}	
+			}else{														
+				TheTextArea.setText("Is that a squirrel perched on a rope? It doesn't seem to be moving."); 		
+				imgTextBox.setVisible(true);				
+				TheTextArea.setVisible(true);
+			}			
+		 }
+		 
+		  if(evt.getSource() == btnDeerStand && ActionEnabled == true){
+			intObjectRow = Model1.AssignRow("deer");			
+			if(strNextObject.equals("deer") && blnDeerStanding != true){ 			//if they have not yet solved the puzzle yet, give them the puzzle by making it visible
+				TheTextArea.setText("It still seems unwell but there is nothing you can do to help, except..."); 		
+				imgTextBox.setVisible(true);				
+				TheTextArea.setVisible(true);
+				//Puzzle
+			}		
+			
+			if(blnDeerStanding == true){		//If they have either just solved or previously solved the puzzle, they can get the clue
+				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 
+				imgTextBox.setVisible(true);				
+				TheTextArea.setVisible(true);
+				if (DeerStandingComplete == false){
+					strNextObject = Model1.strSequence[intObjectRow][6];
+					DeerStandingComplete = true;
+				}
+			}
 		 }
 		 //If the cards are clicked
 		 if(evt.getSource() == btnExitCards){
@@ -374,6 +428,15 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 			TheTextArea.setText(""); 		
 			imgTextBox.setVisible(false);				
 			TheTextArea.setVisible(false);
+			TransitionScreen.setVisible(false);
+			//If the game is ready to transition, do so when the mouse is clicked again
+			if(TransitionComplete == false && strNextObject.equals("deer")){
+				Transition();
+				System.out.println("Transitioned");
+				TransitionComplete = true;
+				btnDeerBody.setVisible(false);	//Make the secondary object of the deer visible and make the initial one invisible
+				btnDeerStand.setVisible(true);
+			}
 		}
 	}
 	public void mousePressed(MouseEvent evt){
@@ -419,40 +482,12 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 		this.add(imgTextBox);
 		this.add(TheTextArea);
 		
-		//Draw the objects
-		//Deer Body
-		btnDeerBody.setBounds(Integer.parseInt(Model1.strSequence[0][1]), Integer.parseInt(Model1.strSequence[0][2]), 502, 138);	//Get the object location from the csv file
-		btnDeerBody.setContentAreaFilled(false);		//Make the button background invisible
-		btnDeerBody.setBorderPainted(false);
-		btnDeerBody.addActionListener(this);
-		this.add(btnDeerBody);
-		//Rifle
-		btnHunting.setBounds(Integer.parseInt(Model1.strSequence[1][1]), Integer.parseInt(Model1.strSequence[1][2]),87, 239);
-		btnHunting.setContentAreaFilled(false);
-		btnHunting.setBorderPainted(false);
-		btnHunting.addActionListener(this);
-		this.add(btnHunting);
-		//Bag
-		btnBag.setBounds(Integer.parseInt(Model1.strSequence[2][1]), Integer.parseInt(Model1.strSequence[2][2]),35, 95);
-		btnBag.setContentAreaFilled(false);
-		btnBag.setBorderPainted(false);
-		btnBag.addActionListener(this);
-		this.add(btnBag);
-		//Hare
-		btnHare.setBounds(Integer.parseInt(Model1.strSequence[3][1]), Integer.parseInt(Model1.strSequence[3][2]),56,71);
-		btnHare.setContentAreaFilled(false);
-		btnHare.setBorderPainted(false);
-		btnHare.addActionListener(this);
-		HatLabel.setBounds(Integer.parseInt(Model1.strSequence[3][1])+35, Integer.parseInt(Model1.strSequence[3][2])+7,12,15);
-		HatLabel.setVisible(false);
-		this.add(HatLabel);
-		this.add(btnHare);
-		//Tree Hole/Burrow
-		btnBurrow.setBounds(Integer.parseInt(Model1.strSequence[4][1]), Integer.parseInt(Model1.strSequence[4][2]),44, 70);
-		btnBurrow.setContentAreaFilled(false);
-		btnBurrow.setBorderPainted(false);
-		btnBurrow.addActionListener(this);
-		this.add(btnBurrow);
+		//Transition Screen
+		TransitionScreen.setBounds(0,0,983,720);
+		TransitionScreen.setVisible(false);	//Invisible Most of the time
+		this.add(TransitionScreen);
+		
+		
 		////////////////////
 		//The Cards Puzzle//
 		////////////////////
@@ -564,5 +599,56 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 		btnExitCards.setEnabled(false);
 		btnExitCards.addActionListener(this);
 		this.add(btnExitCards);
+		
+		
+		//////////////////////////////////////////////
+		//End of card game section: Draw the objects//
+		//////////////////////////////////////////////
+		//Deer Body
+		btnDeerBody.setBounds(Integer.parseInt(Model1.strSequence[0][1]), Integer.parseInt(Model1.strSequence[0][2]), 502, 138);	//Get the object location from the csv file
+		btnDeerBody.setContentAreaFilled(false);		//Make the button background invisible
+		btnDeerBody.setBorderPainted(false);
+		btnDeerBody.addActionListener(this);
+		this.add(btnDeerBody);
+		//Rifle
+		btnHunting.setBounds(Integer.parseInt(Model1.strSequence[1][1]), Integer.parseInt(Model1.strSequence[1][2]),87, 239);
+		btnHunting.setContentAreaFilled(false);
+		btnHunting.setBorderPainted(false);
+		btnHunting.addActionListener(this);
+		this.add(btnHunting);
+		//Bag
+		btnBag.setBounds(Integer.parseInt(Model1.strSequence[2][1]), Integer.parseInt(Model1.strSequence[2][2]),35, 95);
+		btnBag.setContentAreaFilled(false);
+		btnBag.setBorderPainted(false);
+		btnBag.addActionListener(this);
+		this.add(btnBag);
+		//Hare
+		btnHare.setBounds(Integer.parseInt(Model1.strSequence[3][1]), Integer.parseInt(Model1.strSequence[3][2]),56,71);
+		btnHare.setContentAreaFilled(false);
+		btnHare.setBorderPainted(false);
+		btnHare.addActionListener(this);
+		HatLabel.setBounds(Integer.parseInt(Model1.strSequence[3][1])+35, Integer.parseInt(Model1.strSequence[3][2])+7,12,15);
+		HatLabel.setVisible(false);
+		this.add(HatLabel);
+		this.add(btnHare);
+		//Tree Hole/Burrow
+		btnBurrow.setBounds(Integer.parseInt(Model1.strSequence[4][1]), Integer.parseInt(Model1.strSequence[4][2]),44, 70);
+		btnBurrow.setContentAreaFilled(false);
+		btnBurrow.setBorderPainted(false);
+		btnBurrow.addActionListener(this);
+		this.add(btnBurrow);
+		//Squirrel
+		btnSquirrel.setBounds(Integer.parseInt(Model1.strSequence[5][1]), Integer.parseInt(Model1.strSequence[5][2]),210,48);
+		btnSquirrel.setContentAreaFilled(false);
+		btnSquirrel.setBorderPainted(false);
+		btnSquirrel.addActionListener(this);
+		this.add(btnSquirrel);
+		//Deer Standing
+		btnDeerStand.setBounds(Integer.parseInt(Model1.strSequence[6][1]), Integer.parseInt(Model1.strSequence[6][2]),246,341);
+		btnDeerStand.setContentAreaFilled(false);
+		btnDeerStand.setBorderPainted(false);
+		btnDeerStand.addActionListener(this);
+		btnDeerStand.setVisible(false);
+		this.add(btnDeerStand);
 	}
 }
