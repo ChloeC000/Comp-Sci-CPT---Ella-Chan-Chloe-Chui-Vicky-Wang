@@ -18,7 +18,7 @@ public class MainGame implements ActionListener{
 	JButton Path2But;
 	JButton Path3But;
     NetPanel netPanel;
-    Path1 Path1Panel;
+    Path1Panel Path1 = new Path1Panel();
     Path2 Path2Panel;
     Path3 Path3Panel;
     Game1 Game1Panel;
@@ -43,9 +43,13 @@ public class MainGame implements ActionListener{
 			// Activate path 1
             System.out.println("Path 1");
             ResetView();
-            Path1Panel.setVisible(true);
-			Game1But.setVisible(true);
-			Game2But.setVisible(true);
+            thePanel.remove(thePanel);
+			thePanel.revalidate();
+			thePanel.repaint();
+            theFrame.setContentPane(Path1);
+            Path1.add(netPanel.thePanel);
+            Path1.add(Path2But);
+            Path1.add(Path3But);
 			thePanel.repaint();
         } else if (evt.getSource() == Path2But) {
 			// Activate path 2
@@ -107,7 +111,7 @@ public class MainGame implements ActionListener{
 		 // Main window
         theFrame = new JFrame("Main Program");
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        theFrame.setSize(1280, 720);
+        theFrame.setSize(1280, 760);
 
         // Main panel
         thePanel = new JPanel();
@@ -193,26 +197,26 @@ public class MainGame implements ActionListener{
         
         // Path 1
         Path1But = new JButton("Path 1");
-        Path1But.setBounds(0, 650, 120, 30);
+        Path1But.setBounds(0, 690, 120, 30);
         Path1But.addActionListener(this);
         thePanel.add(Path1But);
         
         // Path 2
         Path2But = new JButton("Path 2");
-        Path2But.setBounds(120, 650, 120, 30);
+        Path2But.setBounds(120, 690, 120, 30);
         Path2But.addActionListener(this);
         thePanel.add(Path2But);
         
         // Path 3
         Path3But = new JButton("Path 3");
-        Path3But.setBounds(240, 650, 120, 30);
+        Path3But.setBounds(240, 690, 120, 30);
         Path3But.addActionListener(this);
         thePanel.add(Path3But);
         
         // Add game panels
-        Path1Panel = new Path1();
-        Path1Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Path1Panel);
+		// Path1Panel = new Path1();
+        //Path1Panel.setBounds(0, 0, 980, 600);
+        //thePanel.add(Path1Panel);
         
         Path2Panel = new Path2();
         Path2Panel.setBounds(0, 0, 980, 600);
@@ -241,7 +245,7 @@ public class MainGame implements ActionListener{
 	}
 	
 	public void ResetView(){
-		Path1Panel.setVisible(false);
+		//Path1.setVisible(false);
 		Path2Panel.setVisible(false);
 		Path3Panel.setVisible(false);
 		Game1Panel.setVisible(false);

@@ -35,6 +35,7 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	boolean SquirrelComplete = false;
 	boolean TransitionComplete = false;
 	boolean DeerStandingComplete = false;
+	boolean Path1Complete = false;
 
 	//Objects
 	JButton btnDeerBody = new JButton(new ImageIcon("images/Deer Body.png"));
@@ -69,7 +70,17 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	JButton btnCard12 = new JButton(new ImageIcon("images/cards/Card12.png"));
 	ImageIcon CardBack = new ImageIcon("images/cards/Card Back.png");
 	
-	
+	//Directions/Deer Puzzle
+	JButton btnExitDeer = new JButton(new ImageIcon("images/Exit Button.png"));
+	String strAnswerDeer = "";
+	JButton btnAnswer = new JButton("Answer");
+	JButton btnWest = new  JButton(new ImageIcon("images/Deer Puzzle/West Key.png"));
+	JButton btnNorth = new  JButton(new ImageIcon("images/Deer Puzzle/North Key.png"));
+	JButton btnSouth = new  JButton(new ImageIcon("images/Deer Puzzle/South Key.png"));
+	JButton btnEast = new  JButton(new ImageIcon("images/Deer Puzzle/East Key.png"));
+	JLabel CompassLabelImage = new JLabel(new ImageIcon("images/Deer Puzzle/Compass.png"));
+	JTextArea RiddleArea = new JTextArea();
+	JScrollPane RiddleScroll = new JScrollPane(RiddleArea);
 	
 	//Methods
 	//Draw Background image
@@ -136,6 +147,22 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 		btnCard7.setVisible(true);
 		btnCard7.setEnabled(true);
 	}
+	//Deer/Directions Puzzle
+	public void DirectionPuzzle(){	//Disable other buttons and set the puzzle components to visible
+		ActionEnabled = false;
+		btnAnswer.setVisible(true);
+		btnExitDeer.setVisible(true);
+		btnWest.setVisible(true);
+		btnNorth.setVisible(true);
+		btnSouth.setVisible(true);
+		btnEast.setVisible(true);
+		RiddleScroll.setVisible(true);
+		CompassLabelImage.setVisible(true);
+		TheTextArea.setText("Your Answer is: ");
+		imgTextBox.setVisible(true);				
+		TheTextArea.setVisible(true);
+
+	}
 
 	
 	
@@ -176,7 +203,7 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 					HuntingComplete = true; 				//So the next object only gets update once if it has not been done before
 				}
 			}else{														//If the object has not been unlocked, give alternate clue
-				TheTextArea.setText("Looking at the rifle, you find nothing of note. Better not touch it for now, \nit could be dangerous"); 		
+				TheTextArea.setText("Looking at the rifle, you find nothing of note. Better not touch it for now, it could be dangerous"); 		
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 			}			
@@ -267,6 +294,7 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 				//Puzzle
+				DirectionPuzzle();
 			}		
 			
 			if(blnDeerStanding == true){		//If they have either just solved or previously solved the puzzle, they can get the clue
@@ -276,9 +304,12 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 				if (DeerStandingComplete == false){
 					strNextObject = Model1.strSequence[intObjectRow][6];
 					DeerStandingComplete = true;
+					Path1Complete = true;
+					System.out.println(strNextObject);
 				}
 			}
 		 }
+		 //Card Puzzle Below
 		 //If the cards are clicked
 		 if(evt.getSource() == btnExitCards){
 			 //Enable other buttons again and disable the card puzzle
@@ -421,6 +452,60 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 				 ResetCard();
 			 }
 		 }
+		 
+		 //Directions Puzzle Below
+		 if(evt.getSource() == btnWest){
+			 strAnswerDeer = strAnswerDeer +" West";
+			 System.out.println(strAnswerDeer);
+			 TheTextArea.setText("Your answer is: " + strAnswerDeer);
+			 imgTextBox.setVisible(true);				
+			 TheTextArea.setVisible(true);
+		 }else if(evt.getSource() == btnNorth){
+			 strAnswerDeer = strAnswerDeer +" North";
+			 System.out.println(strAnswerDeer);
+			 TheTextArea.setText("Your answer is: " + strAnswerDeer);
+			 imgTextBox.setVisible(true);				
+			 TheTextArea.setVisible(true);
+		 }else if(evt.getSource() == btnSouth){
+			 strAnswerDeer = strAnswerDeer +" South";
+			 System.out.println(strAnswerDeer);
+			 TheTextArea.setText("Your answer is: " + strAnswerDeer);
+			 imgTextBox.setVisible(true);				
+			 TheTextArea.setVisible(true);
+		 }else if(evt.getSource() == btnEast){
+			 strAnswerDeer = strAnswerDeer +" East";
+			 System.out.println(strAnswerDeer);
+			  TheTextArea.setText("Your answer is: " + strAnswerDeer);
+			 imgTextBox.setVisible(true);				
+			 TheTextArea.setVisible(true);
+		 }else if(evt.getSource() == btnAnswer){
+			 if(strAnswerDeer.equals(Model1.strSequence[6][4])){	//If the answer correct, than allow the user to move one
+				 blnDeerStanding = true;
+				 TheTextArea.setText("Though you've solved his journey, it seems the owner of this journal has also dissapeared. You wonder if you could use this journal to escape somehow."); 		
+				 imgTextBox.setVisible(true);				
+				 TheTextArea.setVisible(true);
+			 }else{	//If incorrect, then reset the answer
+				 strAnswerDeer = "";
+				 TheTextArea.setText("Your answer is: " + strAnswerDeer);
+			 }
+		 }
+		 
+		 //Exit the direction puzzle
+		 if(evt.getSource() == btnExitDeer){
+			 ActionEnabled = true;
+			btnAnswer.setVisible(false);
+			btnExitDeer.setVisible(false);
+			btnWest.setVisible(false);
+			btnNorth.setVisible(false);
+			btnSouth.setVisible(false);
+			btnEast.setVisible(false);
+			RiddleScroll.setVisible(false);
+			CompassLabelImage.setVisible(false);
+			TheTextArea.setText("");
+			imgTextBox.setVisible(false);				
+			TheTextArea.setVisible(false);
+		 }
+
 		
 	}
 	public void mouseClicked(MouseEvent evt){
@@ -450,10 +535,6 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	
 	//Constructor
 	public Path1Panel(){
-		/////////////////////
-		//Path 1 main panel//
-		/////////////////////
-		
 		//Set panel parameters
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(1280, 720));
@@ -476,6 +557,7 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 		TheTextArea.setForeground(Color.WHITE);
 		TheTextArea.setEditable(false);
 		TheTextArea.setLineWrap(true);
+		TheTextArea.setWrapStyleWord(true);
 		TheTextArea.setOpaque(false); 
 		imgTextBox.setVisible(false);			//Make both invisible until they are needed
 		TheTextArea.setVisible(false);
@@ -591,7 +673,7 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 		btnCard7.addActionListener(this);
 		this.add(btnCard7);
 		
-		//Exit Button
+		//Exit Cards Button
 		btnExitCards.setBounds(730,120,32,30);
 		btnExitCards.setContentAreaFilled(false);
 		btnExitCards.setBorderPainted(false);
@@ -600,9 +682,65 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 		btnExitCards.addActionListener(this);
 		this.add(btnExitCards);
 		
+		/////////////////////
+		//Directions Puzzle//
+		/////////////////////
+		
+		//Riddle
+		RiddleScroll.setBounds(280,130,460,260);
+		RiddleArea.setEditable(false);
+		RiddleArea.setLineWrap(true);
+		RiddleArea.setWrapStyleWord(true);
+		RiddleArea.setText("When you approach the deer, it nudges what seems to be a journal towards you:\n\n\nDate: XX/XX/XXXX - How did I get here?\n\nIn my journey through the forest, I  found myself among a clearing of anomalies. The path I took was unclear, shrouded in dense fog, but I remember a couple of things. Initially, I followed a trail forward, deeper into the forest, until I stumbled upon a dense undergrowth. At that point, I turned right, towards the setting sun, to try to walk around the greenery, but to no avail. But by the time I realized this, I had wandered too far from the original path. To try and find my way back, I turned around in the direction I came from and tried to retrace my steps, but somehow, I ended up walking in circles. When I realized my mistake, I oriented myself toward the North Star. Finally, I stumbled across a hill, but when I looked out, I couldn’t see anything! The mist had blanketed the forest. I felt hopeless, but right before I was about to give up, I heard the sound of rushing water coming from behind me. As I approached the river, I saw animals drinking water, and I suddenly remembered how hungry I was. But not wanting to startle any of them just yet, I decided to follow the deer, which was heading in the direction of the now rising sun. It eventually led me to this clearing. Here, I intend to set up camp temporarily and maybe try to find the humans who have left these items behind. I have brought my rifle with me. If it comes to it, I intend to shoot the deer and eat it until either rescue arrives or the fog clears. ");
+		RiddleScroll.setVisible(false);	
+		this.add(RiddleScroll);
+		
+		//Direction Buttons
+		btnWest.setBounds(240,430,92,81);
+		btnWest.setBorderPainted(false);
+		btnWest.addActionListener(this);
+		btnWest.setVisible(false);
+		this.add(btnWest);
+		
+		btnNorth.setBounds(378,430,92,81);
+		btnNorth.setBorderPainted(false);
+		btnNorth.addActionListener(this);
+		btnNorth.setVisible(false);
+		this.add(btnNorth);
+		
+		btnSouth.setBounds(516,430,92,81);
+		btnSouth.setBorderPainted(false);
+		btnSouth.addActionListener(this);
+		btnSouth.setVisible(false);
+		this.add(btnSouth);
+		
+		btnEast.setBounds(654,430,92,81);
+		btnEast.setBorderPainted(false);
+		btnEast.addActionListener(this);
+		btnEast.setVisible(false);
+		this.add(btnEast);
+		
+		//Compass
+		CompassLabelImage.setBounds(140,200,121,121);
+		CompassLabelImage.setVisible(false);
+		this.add(CompassLabelImage);
+		
+		//Answer
+		btnAnswer.setBounds(470,90,80,30);
+		btnAnswer.addActionListener(this);
+		btnAnswer.setVisible(false);
+		this.add(btnAnswer);
+		
+		//Exit Direction Puzzle Button
+		btnExitDeer.setBounds(750,120,32,30);
+		btnExitDeer.setContentAreaFilled(false);
+		btnExitDeer.setBorderPainted(false);
+		btnExitDeer.setVisible(false);
+		btnExitDeer.addActionListener(this);
+		this.add(btnExitDeer);
 		
 		//////////////////////////////////////////////
-		//End of card game section: Draw the objects//
+		//End of Puzzle section: Draw the objects//
 		//////////////////////////////////////////////
 		//Deer Body
 		btnDeerBody.setBounds(Integer.parseInt(Model1.strSequence[0][1]), Integer.parseInt(Model1.strSequence[0][2]), 502, 138);	//Get the object location from the csv file

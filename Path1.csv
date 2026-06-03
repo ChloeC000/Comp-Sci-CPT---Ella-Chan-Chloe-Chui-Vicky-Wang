@@ -4,4 +4,4 @@ bag,490,225,none,none,"Mustering up your courage, you venture through the thick 
 hare,104,614,cards,answer,"The hare's hat is quite dapper, it reminds you of a magician. An image of a tree hole comes to mind. Is it telaphathy or just your imagination?",tree burrow
 tree burrow,785,350,none,none,"The habitant of this tree seems to have been missing for some time. You  wonder where it went; could something have happened to it?",squirrel
 squirrel,557,135,none,none,"As you continue to stare into the distance you notice movement in the corner of your eye.",deer
-deer,425,360,antlers,answer,"clue", end
+deer,425,360,directions, South West East North South East,"You try to convey your thanks to the deer but it just looks at you inquisitively. You wonder if you could use this journal to leave this forest somehow.", end
