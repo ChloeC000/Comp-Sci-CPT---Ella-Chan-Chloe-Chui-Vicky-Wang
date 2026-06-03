@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class Game2 extends JPanel{
+public class Game4 extends JPanel{
 	// Properties
 
 	// Methods
@@ -9,15 +9,15 @@ public class Game2 extends JPanel{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		// Create the screen
-		g.setColor(Color.lightGray);
+		g.setColor(Color.RED);
 		g.fillRect(0, 0, 955, 720);
 		g.setFont(new Font("Arial", Font.BOLD, 30));  
 		g.setColor(Color.BLACK);
-		g.drawString("Game 2", 100, 100);
+		g.drawString("Game 4", 100, 100);
 	}
 	
 	// Constructor
-	public Game2(){
+	public Game4(){
 		super();
 	}
 }

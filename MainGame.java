@@ -2,46 +2,28 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-/*
- * Combination of View and Controller
- */
-public class MainGame implements ActionListener{
-	JFrame theFrame;
-    JPanel thePanel;
-	JButton Game1But;
-	JButton Game2But;
-	JButton Game3But;
-	JButton Game4But;
-	JButton Game5But;
-	JButton Game6But;
+public class MainGame implements ActionListener, MouseListener, MouseMotionListener {
+	int intGameWidth = 955;
+	int intGameHeight = 720;
 	JButton Path1But;
 	JButton Path2But;
 	JButton Path3But;
+	JFrame theFrame;
+    JPanel thePanel;
+    Timer ImageTimer = new Timer(1000/60, this);
+    Intro IntroPanel;
     NetPanel netPanel;
     Path1Panel Path1 = new Path1Panel();
     Path2 Path2Panel;
     Path3 Path3Panel;
-    Game1 Game1Panel;
-    Game2 Game2Panel;
-    Game3 Game3Panel;
-    Game4 Game4Panel;
-    Game5 Game5Panel;
-    Game6 Game6Panel;
+    Help HelpPanel;
     
-    //Add game model here
-    Game1Model Game1Data;
-    Game2Model Game2Data;
-    Game3Model Game3Data;
-    Game4Model Game4Data;
-    Game5Model Game5Data;
-    Game6Model Game6Data;
-  
 	public void actionPerformed(ActionEvent evt){
 		// Main program JComponent actionPerformed
-		// Set game panel visibility and game play here		
 		if (evt.getSource() == Path1But) {
 			// Activate path 1
             System.out.println("Path 1");
+<<<<<<< Updated upstream
             ResetView();
             thePanel.remove(thePanel);
 			thePanel.revalidate();
@@ -50,68 +32,98 @@ public class MainGame implements ActionListener{
             Path1.add(netPanel.thePanel);
             Path1.add(Path2But);
             Path1.add(Path3But);
+=======
+            IntroPanel.setVisible(false);
+            Path1Panel.setVisible(true);
+            Path2Panel.setVisible(false);
+            Path3Panel.setVisible(false);
+			thePanel.revalidate();
+>>>>>>> Stashed changes
 			thePanel.repaint();
         } else if (evt.getSource() == Path2But) {
 			// Activate path 2
 			System.out.println("Path 2");
-			ResetView();
+			IntroPanel.setVisible(false);
+            Path1Panel.setVisible(false);
             Path2Panel.setVisible(true);
-			Game3But.setVisible(true);
-			Game4But.setVisible(true);
+            Path3Panel.setVisible(false);
+			thePanel.revalidate();
 			thePanel.repaint();
 		} else if (evt.getSource() == Path3But) {
 			// Activate path 3
 			System.out.println("Path 3");
-			ResetView();
+			IntroPanel.setVisible(false);
+            Path1Panel.setVisible(false);
+            Path2Panel.setVisible(false);
             Path3Panel.setVisible(true);
-			Game5But.setVisible(true);
-			Game6But.setVisible(true);
+            Path3Panel.ResetView();
+			thePanel.revalidate();
 			thePanel.repaint();
-		} else if (evt.getSource() == Game1But) {
-			// Play path 1 game 1
-			System.out.println("Game 1");
-			ResetView();
-			Game1Panel.setVisible(true);
+		} else if (evt.getSource() == netPanel.helpBut) {
+			if (Path1Panel.isVisible() == true){
+				//HelpPanel.ShowHelp(Path1Panel.GetCurrentHelpPage());
+			} else if (Path2Panel.isVisible() == true){
+				//HelpPanel.ShowHelp(Path2Panel.GetCurrentHelpPage());
+			} else if (Path3Panel.isVisible() == true){
+				HelpPanel.ShowHelp(Path3Panel.GetCurrentHelpPage());
+			}		
+			HelpPanel.setVisible(true);
 			thePanel.repaint();
-		} else if (evt.getSource() == Game2But) {
-			// Play path 1 game 2
-			System.out.println("Game 2");						
-			ResetView();		
-			Game2Panel.setVisible(true);
+		} else if (evt.getSource() == HelpPanel.BackBut) {
+			HelpPanel.setVisible(false);
 			thePanel.repaint();
-		} else if (evt.getSource() == Game3But) {
-			// Play path 2 game 3
-			System.out.println("Game 3");		
-			ResetView();		
-			Game3Panel.setVisible(true);	
+		} else if (evt.getSource() == ImageTimer) {
+			if (IntroPanel.intTitlePosY <= 90) {
+				IntroPanel.intTitlePosY = IntroPanel.intTitlePosY + 1;				
+			} else {
+				ImageTimer.stop();
+			}			
+			if (IntroPanel.intMessagePosY >= 630) {
+				IntroPanel.intMessagePosY = IntroPanel.intMessagePosY - 2;
+			}
 			thePanel.repaint();
-		} else if (evt.getSource() == Game4But) {
-			// Play path 2 game 4
-			System.out.println("Game 4");	
-			ResetView();		
-			Game4Panel.setVisible(true);		
-			thePanel.repaint();
-		} else if (evt.getSource() == Game5But) {
-			// Play path 3 game 5
-			System.out.println("Game 5");		
-			ResetView();		
-			Game5Panel.setVisible(true);	
-			thePanel.repaint();
-		} else if (evt.getSource() == Game6But) {
-			// Play path 3 game 6
-			System.out.println("Game 6");			
-			ResetView();		
-			Game6Panel.setVisible(true);
-			thePanel.repaint();
-		} 	    
+		}
+	}	
+	public void mousePressed(MouseEvent evt) {
+		
+	}	
+	public void mouseDragged(MouseEvent evt) {     
+	 
+    }
+    public void mouseReleased(MouseEvent evt) {
+    
+    }     
+    public void mouseClicked(MouseEvent evt) {
+		//Whenever user clicks, check if they are overlaying the deer's head and body
+		if ((evt.getX() >= 472 && evt.getX() <= 522 && evt.getY() >= 434 && evt.getY() <= 589) || (evt.getX() >=500 && evt.getX() <= 620 && evt.getY() >= 491 && evt.getY() < 580)) {
+			IntroPanel.setVisible(false);
+			Path1Panel.setVisible(true);
+		}		
 	}
-  
+    public void mouseEntered(MouseEvent evt) {
+
+	}
+    public void mouseExited(MouseEvent evt) {
+
+	}
+    public void mouseMoved(MouseEvent evt) {
+		//Have the target follow the mouse as long as it is inside the bounds of the black frame
+		if(evt.getX() < 936 && evt.getX() > 74 && evt.getY() > 77 && evt.getY() < 648){
+			IntroPanel.intMouseX = evt.getX() - 60;
+			IntroPanel.intMouseY = evt.getY() - 50;
+		}
+		thePanel.repaint();
+	}  
 	public MainGame(){
 		// Controller links the View
 		 // Main window
         theFrame = new JFrame("Main Program");
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+<<<<<<< Updated upstream
         theFrame.setSize(1280, 760);
+=======
+        theFrame.setSize(1280, intGameHeight);
+>>>>>>> Stashed changes
 
         // Main panel
         thePanel = new JPanel();
@@ -120,11 +132,12 @@ public class MainGame implements ActionListener{
         // Add this block to create NetPanel
         netPanel = new NetPanel();
         netPanel.thePanel.setBounds(955, 5, 300, 715);   // The network message panel always takes 300 pixel width and 715 pixel height
+        netPanel.helpBut.addActionListener(this);
         thePanel.add(netPanel.thePanel);
         theFrame.setContentPane(thePanel);
         // Need to also close the NetPanel from the main program
         theFrame.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
+			@Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 if (netPanel.SuperSocket != null) {
                     netPanel.SuperSocket.disconnect();
@@ -137,63 +150,36 @@ public class MainGame implements ActionListener{
         // Add other JComponent here //
         // Available width 0 - 950   //        
         ///////////////////////////////              
-        // Game 1
-        Game1But = new JButton("Game 1");
-        Game1But.setBounds(0, 250, 120, 30);
-        Game1But.addActionListener(this);
-        thePanel.add(Game1But);
-        Game1Panel = new Game1();
-        Game1Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Game1Panel);
         
-        // Game 2
-        Game2But = new JButton("Game 2");
-        Game2But.setBounds(120, 250, 120, 30);
-        Game2But.addActionListener(this);
-        thePanel.add(Game2But);
-        Game2Panel = new Game2();
-        Game2Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Game2Panel);        
+        // Add game panels
+        HelpPanel = new Help();
+        HelpPanel.setBounds(0, 0, intGameWidth, intGameHeight);
+        HelpPanel.BackBut.addActionListener(this);
+        thePanel.add(HelpPanel);
         
-        // Game 3
-        Game3But = new JButton("Game 3");
-        Game3But.setBounds(50, 150, 120, 30);
-        Game3But.addActionListener(this);
-        Game3But.setVisible(false);			
-        thePanel.add(Game3But);
-        Game3Panel = new Game3();
-        Game3Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Game3Panel);   
+        IntroPanel = new Intro();
+        IntroPanel.setBounds(0, 0, intGameWidth, intGameHeight);
+        IntroPanel.addMouseListener(this);
+        IntroPanel.addMouseMotionListener(this);
+        thePanel.add(IntroPanel);
         
-        // Game 4
-        Game4But = new JButton("Game 4");
-        Game4But.setBounds(220, 150, 120, 30);
-        Game4But.addActionListener(this);
-        Game4But.setVisible(false);
-        thePanel.add(Game4But);
-        Game4Panel = new Game4();
-        Game4Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Game4Panel);   
+        Path1Panel = new Path1();
+        Path1Panel.setBounds(0, 0, intGameWidth, intGameHeight);
+        thePanel.add(Path1Panel);
         
-        // Game 5
-        Game5But = new JButton("Game 5");
-        Game5But.setBounds(500, 250, 120, 30);
-        Game5But.addActionListener(this);
-        Game5But.setVisible(false);
-        thePanel.add(Game5But);
-        Game5Panel = new Game5();
-        Game5Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Game5Panel);  
+        Path2Panel = new Path2();
+        Path2Panel.setBounds(0, 0, intGameWidth, intGameHeight);
+        thePanel.add(Path2Panel);
         
-        // Game 6
-        Game6But = new JButton("Game 6");
-        Game6But.setBounds(570, 350, 120, 30);
-        Game6But.addActionListener(this);
-        Game6But.setVisible(false);
-        thePanel.add(Game6But);
-        Game6Panel = new Game6();
-        Game6Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Game6Panel);  
+        Path3Panel = new Path3();
+        Path3Panel.setBounds(0, 0, intGameWidth, intGameHeight);
+        thePanel.add(Path3Panel);   
+             
+        HelpPanel.setVisible(false);
+        IntroPanel.setVisible(true);
+        Path1Panel.setVisible(false);
+        Path2Panel.setVisible(false);
+        Path3Panel.setVisible(false);        
         
         // Path 1
         Path1But = new JButton("Path 1");
@@ -213,6 +199,7 @@ public class MainGame implements ActionListener{
         Path3But.addActionListener(this);
         thePanel.add(Path3But);
         
+<<<<<<< Updated upstream
         // Add game panels
 		// Path1Panel = new Path1();
         //Path1Panel.setBounds(0, 0, 980, 600);
@@ -260,6 +247,13 @@ public class MainGame implements ActionListener{
 		Game4But.setVisible(false);
 		Game5But.setVisible(false);
 		Game6But.setVisible(false);
+=======
+        thePanel.setComponentZOrder(Path1But, 0);
+		thePanel.setComponentZOrder(Path2But, 0);
+		thePanel.setComponentZOrder(Path3But, 0);
+        theFrame.setVisible(true);
+        ImageTimer.start();
+>>>>>>> Stashed changes
 	}
   
     public static void main(String[] args) {
