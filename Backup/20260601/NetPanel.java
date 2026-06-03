@@ -16,8 +16,6 @@ public class NetPanel implements ActionListener{
   JButton hearteyesBut;
   JButton hundredBut;
   JButton thumbsBut;
-  JButton discBut; 
-  JButton helpBut; 
   JTextField IPAddressText;
   JTextField portText;  
   JTextField sendText;
@@ -27,6 +25,7 @@ public class NetPanel implements ActionListener{
   JLabel sendlabel;
   JLabel recievedLabel;  
   JLabel theRole;
+  JButton discBut; 
   JScrollPane theScroll;
   ImageIcon grinningIcon;
   ImageIcon squintingIcon;
@@ -115,37 +114,32 @@ public class NetPanel implements ActionListener{
         thePanel.setLayout(null);
         thePanel.setPreferredSize(new Dimension(300, 720));
         
-        // Help button
-        helpBut = new JButton("Help");
-        helpBut.setBounds(0, 0, 300, 25);
-        thePanel.add(helpBut);
-        
         // IP label
         ipaddressLabel = new JLabel("IP Address");
         ipaddressLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        ipaddressLabel.setBounds(0, 30, 300, 25);
+        ipaddressLabel.setBounds(0, 0, 300, 25);
         thePanel.add(ipaddressLabel);
         
         // IP field
         IPAddressText = new JTextField("localhost");
-        IPAddressText.setBounds(0, 55, 300, 25);
+        IPAddressText.setBounds(0, 25, 300, 25);
         thePanel.add(IPAddressText);
         
         // Port label
         portlabel = new JLabel("Port");
         portlabel.setHorizontalAlignment(SwingConstants.CENTER);
-        portlabel.setBounds(0, 80, 300, 25);
+        portlabel.setBounds(0, 50, 300, 25);
         thePanel.add(portlabel);
 
         // Port field
         portText = new JTextField("6112");
-        portText.setBounds(0, 105, 300, 25);
+        portText.setBounds(0, 75, 300, 25);
         thePanel.add(portText);
 
         // Receive label
         recievedLabel = new JLabel("Received Text");
         recievedLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        recievedLabel.setBounds(0, 140, 300, 25);
+        recievedLabel.setBounds(0, 100, 300, 25);
         thePanel.add(recievedLabel);
 
         // Receive area
@@ -155,7 +149,7 @@ public class NetPanel implements ActionListener{
 
         // Scroll pane
         theScroll = new JScrollPane(recievedText);
-        theScroll.setBounds(0, 160, 300, 380);
+        theScroll.setBounds(0, 125, 300, 410);
         thePanel.add(theScroll);
         
         // Send label

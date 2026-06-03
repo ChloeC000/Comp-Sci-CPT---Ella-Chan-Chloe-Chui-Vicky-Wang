@@ -69,7 +69,7 @@ public class Game6 extends JPanel{
 	public Game6(){
 		super();
 		try{
-			imgBackground = ImageIO.read(new File("./Images/Game6Background.png"));
+			imgBackground = ImageIO.read(new File("./Images/Game2Background.png"));
 			imgPaperSmall1 = ImageIO.read(new File("./Images/Paper1Small.png"));
 			imgPaperSmall2 = ImageIO.read(new File("./Images/Paper2Small.png"));
 			imgPaperSmall3 = ImageIO.read(new File("./Images/Paper3Small.png"));
@@ -79,7 +79,7 @@ public class Game6 extends JPanel{
 			imgPaper3 = ImageIO.read(new File("./Images/Paper3.png"));
 			imgPaper4 = ImageIO.read(new File("./Images/Paper4.png"));
 		}catch(IOException e){
-			System.out.println("Unable to Game 6 Background image.");
+			System.out.println("Unable to Game2 Background image.");
 		}
 	}
 }

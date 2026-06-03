@@ -2,30 +2,25 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-/*
- * Path 3 with game 5 and 6
- * Game 5 is the musical beat game
- * Game 6 is the newpaper puzzle game
- * Combination of View and Controller
- */
 public class Path3 extends JPanel implements ActionListener, MouseListener, MouseMotionListener{
-	int intGameWidth = 955;
+int intGameWidth = 955;
 	int intGameHeight = 720;
-	int intCurrentScreen = 3;
+	JFrame theFrame;
+    JPanel thePanel;
 	JButton Game5But;
 	JButton Game6But;
-	JButton BackBut;
-	Game5 Game5Panel;
-	Game6 Game6Panel;
-		
-	// Add game model
-	Game5Model Game5Data;
-	Game6Model Game6Data;
+    NetPanel netPanel;
+    Game5 Game5Panel;
+    Game6 Game6Panel;
     
-	// Game 5 properties
-	Timer patternTimer = new Timer(1000, this);
-	Timer Game5MessageTimer = new Timer(1000/60, this);
-	int[] intTarget = new int[3];
+    // Add game model
+    Game5Model Game5Data;
+    Game6Model Game6Data;
+    
+    // Game 5 properties
+    Timer patternTimer = new Timer(1000, this);
+    Timer Game5MessageTimer = new Timer(1000/60, this);
+    int[] intTarget = new int[3];
 	int[] intBeat = new int[3];
 	int intCurrentPattern = 0;
 	int intCurrentClicks = 0;
@@ -45,7 +40,7 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 	int intPaperIndex = 0;
 	boolean blnDraggingPaper = false;
 	    
-	public void mouseExited(MouseEvent evt){
+    public void mouseExited(MouseEvent evt){
 	}
 	public void mouseEntered(MouseEvent evt){
 	}
@@ -57,22 +52,26 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 			// Game 5
 			// Change the panel color
 			Game5Panel.blnShowWheel = true;
-			repaint();
+			thePanel.repaint();
 		} else if(Game6Panel.isVisible()){
 			// Game 6
 			// Check which newspapar is selected 
 			int x = evt.getX();
 			int y = evt.getY();
 			if(x >= intPaper1X && x <= intPaper1X + Game6Panel.imgPaperSmall1.getWidth() && y >= intPaper1Y && y <= intPaper1Y + Game6Panel.imgPaperSmall1.getHeight()){
+				System.out.println("Mosue Press Paper 1.");
 				intPaperIndex = 1;
 				blnDraggingPaper = true;
 			} else if(x >= intPaper2X && x <= intPaper2X + Game6Panel.imgPaperSmall2.getWidth() && y >= intPaper2Y && y <= intPaper2Y + Game6Panel.imgPaperSmall2.getHeight()){
+				System.out.println("Mosue Press Paper 2.");
 				intPaperIndex = 2;
 				blnDraggingPaper = true;
 			} else if(x >= intPaper3X && x <= intPaper3X + Game6Panel.imgPaperSmall3.getWidth() && y >= intPaper3Y && y <= intPaper3Y + Game6Panel.imgPaperSmall3.getHeight()){
+				System.out.println("Mosue Press Paper 3.");
 				intPaperIndex = 3;
 				blnDraggingPaper = true;
 			} else if(x >= intPaper4X && x <= intPaper4X + Game6Panel.imgPaperSmall4.getWidth() && y >= intPaper4Y && y <= intPaper4Y + Game6Panel.imgPaperSmall4.getHeight()){
+				System.out.println("Mosue Press Paper 4.");
 				intPaperIndex = 4;
 				blnDraggingPaper = true;
 			}
@@ -82,6 +81,7 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 		int x = evt.getX();
 		int y = evt.getY();
     
+		System.out.println("Mosue Clicked.");
 		// Game 5
 		if (Game5Panel.isVisible()) {
 			Game5Panel.blnShowWheel = false;
@@ -94,12 +94,14 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 			}		
 			patternTimer.setRepeats(false);
 			patternTimer.start();
-			repaint();
+			thePanel.repaint();
 		}
-	}	
+	}
+	
 	public void mouseDragged(MouseEvent evt){
 		// Game 6
 		if(Game6Panel.isVisible() && blnDraggingPaper){
+			System.out.println("intPaperX = " + intPaperX + ", intPaperY = " + intPaperY);
 			intPaperX = evt.getX();
 			intPaperY = evt.getY();
 			if (intPaperIndex == 1){
@@ -147,23 +149,22 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 					intPaper4Y = intPaperY;
 				}
 			}			
-			repaint();
+			thePanel.repaint();
 		}
 	}
+
 	public void mouseMoved(MouseEvent evt){
-	}  
+	}
+  
 	public void actionPerformed(ActionEvent evt){
 		// Main program JComponent actionPerformed
 		// Set game panel visibility and game play here		
 		if (evt.getSource() == Game5But) {
 			// Play path 3 game 5
-			System.out.println("Game 5");	
-			intCurrentScreen = 8;	
+			System.out.println("Game 5");		
 			Game5Data.GetData();	
 			Game5MessageTimer.start();	
 			ResetView();				
-			Game5But.setVisible(false);
-			Game6But.setVisible(false);
 			Game5Panel.setVisible(true);	
 			Game5Panel.strBeat = "Press the right jog wheel to create patterns of " + Game5Data.intBeat1 + ", " + Game5Data.intBeat2 + ", " + Game5Data.intBeat3 + " beats.";
 			Game5Panel.strResult = "";			
@@ -172,14 +173,11 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 			intTarget[2] = Game5Data.intBeat3;
 			intCurrentPattern = 0;
 			intCurrentClicks = 0;
-			repaint();
+			thePanel.repaint();
 		} else if (evt.getSource() == Game6But) {
 			// Play path 3 game 6
-			System.out.println("Game 6");		
-			intCurrentScreen = 9;		
+			System.out.println("Game 6");			
 			ResetView();		
-			Game5But.setVisible(false);
-			Game6But.setVisible(false);
 			Game6Panel.setVisible(true);
 			intPaper1X = Game6Panel.intPaper1X;
 			intPaper1Y = Game6Panel.intPaper1Y;
@@ -189,7 +187,7 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 			intPaper3Y = Game6Panel.intPaper3Y;
 			intPaper4X = Game6Panel.intPaper4X;
 			intPaper4Y = Game6Panel.intPaper4Y;
-			repaint();
+			thePanel.repaint();
 		} else if (evt.getSource() == patternTimer) {
 			// Play path 3 game 5 timer
 			intBeat[intCurrentPattern] = intCurrentClicks;
@@ -209,68 +207,80 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 				}
 				intCurrentPattern = 0;
 				intCurrentClicks = 0;
-				repaint();
+				thePanel.repaint();
 			}
 		} else if (evt.getSource() == Game5MessageTimer) {
 			// Play path 3 game 5 timer
 			if (Game5Panel.intPosY > 50){
 				Game5Panel.intPosY = Game5Panel.intPosY - 2;
-				repaint();
+				thePanel.repaint();
 			} else {
 				Game5MessageTimer.stop();
 			}
-		} 
-		else if (evt.getSource() == BackBut) {
-			ResetView();
-			repaint();
 		}
 	}
-	public int GetCurrentHelpPage() {
-		return intCurrentScreen;
-	}
-	  
+  
 	public Path3(){
 		// Controller links the View
 		// Main window
+		super();
+        theFrame = new JFrame("Main Program");
+        theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        theFrame.setSize(1280, intGameHeight);
+
+        // Main panel
+        thePanel = new JPanel();
+        thePanel.setLayout(null);
+
+        // Add this block to create NetPanel
+        netPanel = new NetPanel();
+        netPanel.thePanel.setBounds(955, 5, 300, 715);   // The network message panel always takes 300 pixel width and 715 pixel height
+        thePanel.add(netPanel.thePanel);
+        theFrame.setContentPane(thePanel);
+        // Need to also close the NetPanel from the main program
+        theFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                if (netPanel.SuperSocket != null) {
+                    netPanel.SuperSocket.disconnect();
+                }
+            }
+        }
+        );
         
         ///////////////////////////////
         // Add other JComponent here //
         // Available width 0 - 950   //        
         ///////////////////////////////              
-        setLayout(null);
-        
+        // Game 5
+        Game5But = new JButton("Game 5");
+        Game5But.setBounds(500, 250, 120, 30);
+        Game5But.addActionListener(this);
+        Game5But.setVisible(false);
+        thePanel.add(Game5But);
         Game5Panel = new Game5();
         Game5Panel.setBounds(0, 0, intGameWidth, intGameHeight);
         Game5Panel.addMouseListener(this);
-        add(Game5Panel);  
+        thePanel.add(Game5Panel);  
+        
+        // Game 6
+        Game6But = new JButton("Game 6");
+        Game6But.setBounds(570, 350, 120, 30);
+        Game6But.addActionListener(this);
+        Game6But.setVisible(false);
+        thePanel.add(Game6But);
         Game6Panel = new Game6();
         Game6Panel.setBounds(0, 0, intGameWidth, intGameHeight);
         Game6Panel.addMouseListener(this);
 		Game6Panel.addMouseMotionListener(this);
-        add(Game6Panel); 
-       
-        Game5But = new JButton("Game 5");
-        Game5But.setBounds(500, 250, 120, 30);
-        Game5But.addActionListener(this);
-        Game5But.setVisible(true);
-        add(Game5But);
-        Game6But = new JButton("Game 6");
-        Game6But.setBounds(570, 350, 120, 30);
-        Game6But.addActionListener(this);
-        Game6But.setVisible(true);
-        add(Game6But);
-        BackBut = new JButton("Back");
-        BackBut.setBounds(0, 0, 120, 30);
-        BackBut.addActionListener(this);
-        BackBut.setVisible(true);
-        add(BackBut);
+        thePanel.add(Game6Panel);  
+                     
+        theFrame.setVisible(true);
         
         // Controller links the Model
         Game5Data = new Game5Model();
         Game6Data = new Game6Model();
-        setComponentZOrder(BackBut, 0);     
-        setComponentZOrder(Game5But, 0);  
-        setComponentZOrder(Game6But, 0);     
+        ResetView();
 	}
 	
 	public void ResetView(){
@@ -278,6 +288,5 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 		Game6Panel.setVisible(false);
 		Game5But.setVisible(true);
 		Game6But.setVisible(true);
-		BackBut.setVisible(true);
 	}
 }

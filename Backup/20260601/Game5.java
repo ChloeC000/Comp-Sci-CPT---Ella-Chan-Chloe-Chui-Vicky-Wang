@@ -15,6 +15,7 @@ public class Game5 extends JPanel{
 	int intPosX;
 	int intPosY;
 	boolean blnShowWheel;
+	MainGame mainGame;
 
 	// Methods
 	// Paint the screen
@@ -37,7 +38,7 @@ public class Game5 extends JPanel{
 	// Constructor
 	public Game5(){
 		super();		
-		intPosY = 200;		
+		intPosY = 200;
 		try{
 			imgBackground = ImageIO.read(new File("./Images/DJPanel.png"));
 			imgWheel = ImageIO.read(new File("./Images/DJPanel2.png"));
