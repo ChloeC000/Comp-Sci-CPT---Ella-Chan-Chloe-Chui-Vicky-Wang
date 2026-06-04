@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	//Properties
 	BufferedImage imgPath1Background = null;
-	Path1Model Model1 = new Path1Model();
+	PathModel Model1 = new PathModel("Path1.csv");
 	Timer theTimer = new Timer(1000/60, this);
 	
 	String strNextObject = "";		//To know what object to unlock next

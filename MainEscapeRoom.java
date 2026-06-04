@@ -35,7 +35,7 @@ public class MainEscapeRoom implements ActionListener{
 	public MainEscapeRoom(){
 		
 		//theFrame.setContentPane(IntroductionPanel.IntroPanel);
-		theFrame.setContentPane(Panel2);
+		theFrame.setContentPane(Panel1);
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         theFrame.pack();
         theFrame.setVisible(true);

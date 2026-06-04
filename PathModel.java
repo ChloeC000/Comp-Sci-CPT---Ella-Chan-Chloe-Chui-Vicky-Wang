@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import java.io.*;
 
-public class Path1Model{
+public class PathModel{
 	//Properties
 	String strSequence[][] = new String[7][7];
 	String strSplit[];
@@ -54,9 +54,7 @@ public class Path1Model{
 	public boolean AssignAction(int intRow){
 		//Look if there is a puzzle assigned for that row
 		if(!strSequence[intRow][4].equals("none")){
-			if (strSequence[intRow][4].equals("cards")){
-				blnPuzzle = false;
-			}
+			blnPuzzle = false;
 		}else{
 			blnPuzzle = true;
 		}
@@ -65,9 +63,9 @@ public class Path1Model{
 	
 	
 	//Constructor
-	public Path1Model(){
+	public PathModel(String strCurrentFile){
 		try{
-			SequenceFile = new BufferedReader(new FileReader("Path1.csv"));
+			SequenceFile = new BufferedReader(new FileReader(strCurrentFile));
 		}catch(IOException e){
 			System.out.println("Could not load file, IOException");
 		}
