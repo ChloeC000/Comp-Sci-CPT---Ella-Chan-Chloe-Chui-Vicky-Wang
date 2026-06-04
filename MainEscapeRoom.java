@@ -23,7 +23,7 @@ public class MainEscapeRoom implements ActionListener{
 	//Introduction Panel
 	IntroductionView IntroductionPanel = new IntroductionView();
 	Path1Panel Panel1 = new Path1Panel();
-	
+	Path2Panel Panel2 = new Path2Panel();
 	
 	//Methods
 	public void actionPerformed (ActionEvent evt){
@@ -35,7 +35,7 @@ public class MainEscapeRoom implements ActionListener{
 	public MainEscapeRoom(){
 		
 		//theFrame.setContentPane(IntroductionPanel.IntroPanel);
-		theFrame.setContentPane(Panel1);
+		theFrame.setContentPane(Panel2);
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         theFrame.pack();
         theFrame.setVisible(true);

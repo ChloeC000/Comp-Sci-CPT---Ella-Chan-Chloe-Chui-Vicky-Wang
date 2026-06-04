@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 //Path 2 Model
 
 import java.io.*;
@@ -89,13 +89,12 @@ public class Path2Model{
 		}
 	}
 }
-=======
+/*
 import java.io.*;
 import java.util.*;
 
-/*
- * Path 2 Model
- */
+ Path 2 Model
+ 
 public class Path2Model{
 	String[][] strData;
 		
@@ -146,4 +145,4 @@ public class Path2Model{
 		GetData();
 	}
 }
->>>>>>> Stashed changes
+*/

@@ -187,9 +187,9 @@ public class Path2Panel extends JPanel implements ActionListener, MouseListener{
         //think ill need a transition screen
         // later will do
 
-        ///////////////////////////////////
-        /// the objects ill be drawing////
-        /// /////////////////////////////
+        //////////////////////////////
+        //the objects ill be drawing//
+        //////////////////////////////
         //Statue 1
         btnStatue1.setBounds(Integer.parseInt(Model2.strSequence[0][1]), Integer.parseInt(Model2.strSequence[0][2]), 100, 100);
         btnStatue1.setContentAreaFilled(false);
