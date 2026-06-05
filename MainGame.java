@@ -13,15 +13,9 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
     Timer ImageTimer = new Timer(1000/60, this);
     Intro IntroPanel;
     NetPanel netPanel;
-<<<<<<< Updated upstream
     Path1Panel Path1 = new Path1Panel();
     Path2Panel Path2 = new Path2Panel();
     Path3 Path3Panel = new Path3();
-=======
-    Path1 Path1Panel;
-    Path2 Path2Panel;
-    Path3 Path3Panel;
->>>>>>> Stashed changes
     Help HelpPanel;
 
     
@@ -30,7 +24,6 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		if (evt.getSource() == Path1But) {
 			// Activate path 1
             System.out.println("Path 1");
-<<<<<<< Updated upstream
             //ResetView();
             thePanel.remove(thePanel);
 			thePanel.revalidate();
@@ -40,17 +33,11 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Path1.add(Path2But);
             Path1.add(Path3But);
             /*IntroPanel.setVisible(false);
-=======
-            IntroPanel.setVisible(false);
->>>>>>> Stashed changes
             Path1Panel.setVisible(true);
             Path2Panel.setVisible(false);
             Path3Panel.setVisible(false);
 			thePanel.revalidate();
-<<<<<<< Updated upstream
 			*/
-=======
->>>>>>> Stashed changes
 			thePanel.repaint();
         } else if (evt.getSource() == Path2But) {
 			// Activate path 2
@@ -148,14 +135,10 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		 // Main window
         theFrame = new JFrame("Main Program");
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-<<<<<<< Updated upstream
 
         theFrame.setSize(1280, 760);
         //theFrame.setSize(1280, intGameHeight);
 
-=======
-        theFrame.setSize(1280, intGameHeight);
->>>>>>> Stashed changes
 
         // Main panel
         thePanel = new JPanel();
@@ -230,7 +213,6 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         Path3But.setBounds(240, 650, 120, 30);
         Path3But.addActionListener(this);
         thePanel.add(Path3But);
-<<<<<<< Updated upstream
        
         /* Add game panels
 		// Path1Panel = new Path1();
@@ -283,18 +265,11 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		Game6But.setVisible(false);
 		*/
 
-=======
-        
->>>>>>> Stashed changes
         thePanel.setComponentZOrder(Path1But, 0);
 		thePanel.setComponentZOrder(Path2But, 0);
 		thePanel.setComponentZOrder(Path3But, 0);
         theFrame.setVisible(true);
         ImageTimer.start();
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 	}
   
     public static void main(String[] args) {
