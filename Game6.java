@@ -8,6 +8,7 @@ import javax.imageio.*;
 public class Game6 extends JPanel{
 	// Properties
 	BufferedImage imgBackground = null;
+	BufferedImage imgDialogBox = null;
 	BufferedImage imgPaperSmall1 = null;
 	BufferedImage imgPaperSmall2 = null;
 	BufferedImage imgPaperSmall3 = null;
@@ -28,6 +29,7 @@ public class Game6 extends JPanel{
 	boolean blnShowPaper2 = false;
 	boolean blnShowPaper3 = false;
 	boolean blnShowPaper4 = false;
+	String strMessage = "";
 
 	// Methods
 	// Paint the screen
@@ -60,8 +62,10 @@ public class Game6 extends JPanel{
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 30));  
 		g.drawString("Put the four pieces of newpaper back together.", 10, 50);
+		g.setFont(new Font("Arial", Font.BOLD, 22));  
+		g.drawString(strMessage, 10, 80);
 		if (blnShowPaper1 == true && blnShowPaper2 == true && blnShowPaper3 == true && blnShowPaper4 == true){
-			g.drawString("You have got the new clue.", 410, 280);
+			g.drawImage(imgDialogBox, 300, 290, null);
 		}
 	}
 	
@@ -70,6 +74,7 @@ public class Game6 extends JPanel{
 		super();
 		try{
 			imgBackground = ImageIO.read(new File("./Images/Game6Background.png"));
+			imgDialogBox = ImageIO.read(new File("./Images/Game6Dialog.png"));
 			imgPaperSmall1 = ImageIO.read(new File("./Images/Paper1Small.png"));
 			imgPaperSmall2 = ImageIO.read(new File("./Images/Paper2Small.png"));
 			imgPaperSmall3 = ImageIO.read(new File("./Images/Paper3Small.png"));

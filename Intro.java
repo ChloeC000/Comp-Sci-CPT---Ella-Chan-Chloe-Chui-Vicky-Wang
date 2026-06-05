@@ -21,8 +21,9 @@ public class Intro extends JPanel {
 		// Create the screen
 		g.setColor(Color.WHITE);
 		g.drawImage(imgBackground, 0, 0, null);
-		g.setFont(new Font("Arial", Font.BOLD, 30));  
-		g.drawString("Encroaching Mist", 300, intTitlePosY);
+		g.setFont(new Font("Arial", Font.BOLD, 60));  
+		g.drawString("Encroaching Mist", 220, intTitlePosY);
+		g.setFont(new Font("Arial", Font.BOLD, 30)); 
 		g.drawString("Shoot the deer's body to start.", 10, intMessagePosY);		
 		g.drawImage(imgCursor, intMouseX, intMouseY, null);
 	}

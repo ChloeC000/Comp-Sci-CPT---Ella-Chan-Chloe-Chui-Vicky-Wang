@@ -1,6 +1,8 @@
-statue1,260,480,none,none,The carved moon points toward a song that has not been played yet,statue2
-statue2,430,470,none,none,The watcher of the night listens from above,statue3
-statue3,610,470,symbol,flute,Three symbols must face the same truth before the song can wake,flute
-flute,760,350,none,none,The melody hidden beneath the first statue begins to glow,owl
-owl,560,130,riddle,nest,Built by mother abandoned by spring. Search where small ones once learned to sing,nest
-nest,120,180,none,none,Inside the nest, you find the final clue. The forest path opens,done
+nest,120,120,none,none,Three stone watchers hide the song,owl
+owl,400,130,riddle,Flute|Car|Computer|Piano|0,What has holes but still sings?,clue
+clue,620,120,none,none,The middle statue speaks in symbols,statue1
+statue1,630,525,none,none,The moon watches first,statue2
+statue2,60,380,symbol,owl,The creature of night guards the way,statue3
+statue3,310,520,none,none,The final answer must be played,flute
+flute,760,180,none,none,You found the flute. The forest path opens.,done
+

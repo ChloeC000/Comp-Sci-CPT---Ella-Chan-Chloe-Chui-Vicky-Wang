@@ -12,8 +12,8 @@ public class Game4 extends JPanel {
 	String strResult = "";
 	String[] strChoice;
 	int intPosX;
-	JButton SubmitBut;
 	JRadioButton[] radioChoice = new JRadioButton[4];
+	JButton CloseBut = new JButton(new ImageIcon("./images/Exit Button.png"));
 
 	// Methods
 	// Paint the screen
@@ -23,17 +23,21 @@ public class Game4 extends JPanel {
 		g.setColor(Color.WHITE);
 		g.drawImage(imgBackground, 0, 0, null);
 		g.setFont(new Font("Arial", Font.BOLD, 30));  
-		g.drawString(strRiddle, intPosX, 250);		
-		g.drawString(strResult, 10, 600);
+		g.drawString(strRiddle, intPosX, 120);		
+		g.drawString(strResult, 100, 500);
 	}
 	public void Init(){
 		ButtonGroup rbGroup = new ButtonGroup();
-		int x = 20;
-        int y = 520;
+		int x = 100;
+        int y = 180;
+        setFont(new Font("Arial", Font.BOLD, 30)); 
 		for (int i = 0; i < 4; i++) {
 			System.out.println(strChoice[i]);
             radioChoice[i] = new JRadioButton(strChoice[i]);
-            radioChoice[i].setBounds(x, y + (i * 25), 150, 20);
+            radioChoice[i].setBounds(150, y + (i * 35), 500, 35);
+            radioChoice[i].setForeground(Color.WHITE);
+            radioChoice[i].setFont(new Font("Arial", Font.PLAIN, 30));
+            radioChoice[i].setOpaque(false);
             rbGroup.add(radioChoice[i]);
             add(radioChoice[i]);
         }
@@ -44,10 +48,10 @@ public class Game4 extends JPanel {
 		super();		
 		setLayout(null);
 		intPosX = -200;
-		SubmitBut = new JButton("Submit");
-        SubmitBut.setBounds(800, 650, 100, 25);
-        add(SubmitBut);  
-        
+		CloseBut.setBounds(800, 110, 32, 32);
+		CloseBut.setContentAreaFilled(false);		//Make the button background invisible
+		CloseBut.setBorderPainted(false);
+		add(CloseBut);
 		try{
 			imgBackground = ImageIO.read(new File("./Images/Game4Background.png"));
 		}catch(IOException e){

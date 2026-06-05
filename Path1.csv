@@ -1,7 +1,7 @@
-deer body,440,558,none,none,"You examine the body of the deer, it's still alive. You find one bullet              fragment lodged in its neck.",rifle
-rifle,243,450,none,none,"You examine the rifle closely, a small inscription on the handle is scratched out but you can make out what seems to be initials. They seem strangely     familiar. You take the rifle with you, there are no bullets but it seems intimidating.",bag
-bag,490,225,none,none,"Mustering up your courage, you venture through the thick fog in the hopes of finding something useful in the bag. You find a rabbit plush but its been   torn up.",hare
-hare,104,614,cards,answer,"The hare's hat is quite dapper, it reminds you of a magician. An image of a tree hole comes to mind. Is it telaphathy or just your imagination?",tree burrow
-tree burrow,785,350,none,none,"The habitant of this tree seems to have been missing for some time. You  wonder where it went; could something have happened to it?",squirrel
-squirrel,557,135,none,none,"As you continue to stare into the distance you notice movement in the corner of your eye.",deer
+deer body,400,562,none,none,"You examine the body of the deer, it's still alive. You find one bullet fragment lodged in its neck.",rifle
+rifle,213,460,none,none,"You examine the rifle closely, a small inscription on the handle is scratched out but you can make out what seems to be initials. They seem strangely familiar. You take the rifle withot bullets but it seems intimidating.",bag
+bag,461,228,none,none,"Mustering up your courage, you venture through the thick fog in the hopes of finding something useful in the bag. You find a rabbit plush but its been   torn up.",hare
+hare,76,614,cards,answer,"The hare's hat is quite dapper, it reminds you of a magician. An image of a tree hole comes to mind. Is it telaphathy or just your imagination?",tree burrow
+tree burrow,750,220,none,none,"The habitant of this tree seems to have been missing for some time. You  wonder where it went; could something have happened to it?",squirrel
+squirrel,523,143,none,none,"As you continue to stare into the distance you notice movement in the corner of your eye.",deer
 deer,425,360,directions, South West East North South East,"You try to convey your thanks to the deer but it just looks at you inquisitively. You wonder if you could use this journal to leave this forest somehow.", end

@@ -48,9 +48,12 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 			// Activate path 3
 			System.out.println("Path 3");
 			IntroPanel.setVisible(false);
+			Tran1Pane1.setVisible(false);
             Path1Panel.setVisible(false);
+            Tran2Pane1.setVisible(false);
             Path2Panel.setVisible(false);
-            Path3Panel.setVisible(true);
+            Tran3Pane1.setVisible(true);
+            Path3Panel.setVisible(false);
             Path3Panel.ResetView();
 			thePanel.revalidate();
 			thePanel.repaint();
@@ -99,6 +102,19 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}	
 				} else {
 					Tran2Pane1.setVisible(false);
+					Path2Panel.setVisible(true);
+				}				
+			} else if (Tran3Pane1.isVisible() == true){
+				Tran3Pane1.intTranTime = Tran3Pane1.intTranTime + 1;
+				if (Tran3Pane1.intTranTime <= 250){
+					if (Tran3Pane1.intPos1X <= 150){
+						Tran3Pane1.intPos1X = Tran3Pane1.intPos1X + 3;
+					}
+					if (Tran3Pane1.intPos2X >= 600){
+						Tran3Pane1.intPos2X = Tran3Pane1.intPos2X -2;						
+					}	
+				} else {
+					Tran3Pane1.setVisible(false);
 					Path2Panel.setVisible(true);
 				}				
 			}			
