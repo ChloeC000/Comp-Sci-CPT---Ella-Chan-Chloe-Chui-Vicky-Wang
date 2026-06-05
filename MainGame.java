@@ -13,15 +13,12 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
     Timer ImageTimer = new Timer(1000/60, this);
     Intro IntroPanel;
     NetPanel netPanel;
-<<<<<<< Updated upstream
-    Path1Panel Path1 = new Path1Panel();
-    Path2Panel Path2 = new Path2Panel();
-    Path3 Path3Panel = new Path3();
-=======
     Path1 Path1Panel;
     Path2 Path2Panel;
     Path3 Path3Panel;
->>>>>>> Stashed changes
+    Transition1 Tran1Pane1;
+    Transition2 Tran2Pane1;
+    Transition3 Tran3Pane1;
     Help HelpPanel;
     
 	public void actionPerformed(ActionEvent evt){
@@ -29,34 +26,21 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		if (evt.getSource() == Path1But) {
 			// Activate path 1
             System.out.println("Path 1");
-<<<<<<< Updated upstream
-            //ResetView();
-            thePanel.remove(thePanel);
-			thePanel.revalidate();
-			thePanel.repaint();
-            theFrame.setContentPane(Path1);
-            Path1.add(netPanel.thePanel);
-            Path1.add(Path2But);
-            Path1.add(Path3But);
-            /*IntroPanel.setVisible(false);
-=======
+            Tran1Pane1.setVisible(true);
             IntroPanel.setVisible(false);
->>>>>>> Stashed changes
-            Path1Panel.setVisible(true);
+            Path1Panel.setVisible(false);
             Path2Panel.setVisible(false);
             Path3Panel.setVisible(false);
 			thePanel.revalidate();
-<<<<<<< Updated upstream
-			*/
-=======
->>>>>>> Stashed changes
 			thePanel.repaint();
         } else if (evt.getSource() == Path2But) {
 			// Activate path 2
 			System.out.println("Path 2");
 			IntroPanel.setVisible(false);
+			Tran1Pane1.setVisible(false);
             Path1Panel.setVisible(false);
-            Path2Panel.setVisible(true);
+            Tran2Pane1.setVisible(true);
+            Path2Panel.setVisible(false);
             Path3Panel.setVisible(false);
 			thePanel.revalidate();
 			thePanel.repaint();
@@ -84,14 +68,40 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 			HelpPanel.setVisible(false);
 			thePanel.repaint();
 		} else if (evt.getSource() == ImageTimer) {
-			if (IntroPanel.intTitlePosY <= 150) {
-				IntroPanel.intTitlePosY = IntroPanel.intTitlePosY + 1;				
-			} else {
-				ImageTimer.stop();
+			if (IntroPanel.isVisible() == true){
+				if (IntroPanel.intTitlePosY <= 150) {
+					IntroPanel.intTitlePosY = IntroPanel.intTitlePosY + 1;				
+				}			
+				if (IntroPanel.intMessagePosY >= 630) {
+					IntroPanel.intMessagePosY = IntroPanel.intMessagePosY - 2;
+				}
+			} else if (Tran1Pane1.isVisible() == true){
+				Tran1Pane1.intTranTime = Tran1Pane1.intTranTime + 1;
+				if (Tran1Pane1.intTranTime <= 250){
+					if (Tran1Pane1.intPos1X <= 150){
+						Tran1Pane1.intPos1X = Tran1Pane1.intPos1X + 3;
+					}
+					if (Tran1Pane1.intPos2X >= 600){
+						Tran1Pane1.intPos2X = Tran1Pane1.intPos2X -2;						
+					}	
+				} else {
+					Tran1Pane1.setVisible(false);
+					Path1Panel.setVisible(true);
+				}				
+			} else if (Tran2Pane1.isVisible() == true){
+				Tran2Pane1.intTranTime = Tran2Pane1.intTranTime + 1;
+				if (Tran2Pane1.intTranTime <= 250){
+					if (Tran2Pane1.intPos1X <= 150){
+						Tran2Pane1.intPos1X = Tran2Pane1.intPos1X + 3;
+					}
+					if (Tran2Pane1.intPos2X >= 600){
+						Tran2Pane1.intPos2X = Tran2Pane1.intPos2X -2;						
+					}	
+				} else {
+					Tran2Pane1.setVisible(false);
+					Path2Panel.setVisible(true);
+				}				
 			}			
-			if (IntroPanel.intMessagePosY >= 630) {
-				IntroPanel.intMessagePosY = IntroPanel.intMessagePosY - 2;
-			}
 			thePanel.repaint();
 		}
 	}	
@@ -108,7 +118,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		//Whenever user clicks, check if they are overlaying the deer's head and body
 		if ((evt.getX() >= 472 && evt.getX() <= 522 && evt.getY() >= 434 && evt.getY() <= 589) || (evt.getX() >=500 && evt.getX() <= 620 && evt.getY() >= 491 && evt.getY() < 580)) {
 			IntroPanel.setVisible(false);
-			Path1Panel.setVisible(true);
+			Tran1Pane1.setVisible(true);
 		}		
 	}
     public void mouseEntered(MouseEvent evt) {
@@ -130,14 +140,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		 // Main window
         theFrame = new JFrame("Main Program");
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-<<<<<<< Updated upstream
-
-        theFrame.setSize(1280, 760);
-        //theFrame.setSize(1280, intGameHeight);
-
-=======
         theFrame.setSize(1280, intGameHeight);
->>>>>>> Stashed changes
 
         // Main panel
         thePanel = new JPanel();
@@ -188,6 +191,18 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         Path3Panel = new Path3();
         Path3Panel.setBounds(0, 0, intGameWidth, intGameHeight);
         thePanel.add(Path3Panel);   
+        
+        Tran1Pane1 = new Transition1();
+        Tran1Pane1.setBounds(0, 0, intGameWidth, intGameHeight);
+        thePanel.add(Tran1Pane1);   
+        
+        Tran2Pane1 = new Transition2();
+        Tran2Pane1.setBounds(0, 0, intGameWidth, intGameHeight);
+        thePanel.add(Tran2Pane1); 
+        
+        Tran3Pane1 = new Transition3();
+        Tran3Pane1.setBounds(0, 0, intGameWidth, intGameHeight);
+        thePanel.add(Tran3Pane1); 
              
         HelpPanel.setVisible(false);
         IntroPanel.setVisible(true);
@@ -212,62 +227,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         Path3But.setBounds(240, 700, 120, 30);
         Path3But.addActionListener(this);
         thePanel.add(Path3But);
-<<<<<<< Updated upstream
-       
-        /* Add game panels
-		// Path1Panel = new Path1();
-        //Path1Panel.setBounds(0, 0, 980, 600);
-        //thePanel.add(Path1Panel);
         
-        Path2Panel = new Path2();
-        Path2Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Path2Panel);
-        */
-        
-        Path3Panel = new Path3();
-        Path3Panel.setBounds(0, 0, 980, 600);
-        thePanel.add(Path3Panel);        
-        
-        theFrame.setVisible(true);
-        
-        /* Controller links the Model
-        Game1Data = new Game1Model();
-        Game1Data.GetData();
-        Game2Data = new Game2Model();
-        Game2Data.GetData();
-        Game3Data = new Game3Model();
-        Game3Data.GetData();
-        Game4Data = new Game4Model();
-        Game4Data.GetData();
-        Game5Data = new Game5Model();
-        Game5Data.GetData();
-        Game6Data = new Game6Model();
-        Game6Data.GetData();
-        */
-        ResetView();
-	}
-	
-	public void ResetView(){
-		/*Path1.setVisible(false);
-		Path2Panel.setVisible(false);
-		Path3Panel.setVisible(false);
-		Game1Panel.setVisible(false);
-		Game2Panel.setVisible(false);
-		Game3Panel.setVisible(false);
-		Game4Panel.setVisible(false);
-		Game5Panel.setVisible(false);
-		Game6Panel.setVisible(false);
-		Game1But.setVisible(false);
-		Game2But.setVisible(false);
-		Game3But.setVisible(false);
-		Game4But.setVisible(false);
-		Game5But.setVisible(false);
-		Game6But.setVisible(false);
-		*/
-
-=======
-        
->>>>>>> Stashed changes
         thePanel.setComponentZOrder(Path1But, 0);
 		thePanel.setComponentZOrder(Path2But, 0);
 		thePanel.setComponentZOrder(Path3But, 0);
