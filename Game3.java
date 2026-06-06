@@ -1,23 +1,53 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
 
 public class Game3 extends JPanel{
 	// Properties
+	BufferedImage imgBackground = null;
+	String strQuestion = "";
+	String strResult = "";
+	int intPosX;
+	JButton CloseBut = new JButton(new ImageIcon("./images/Exit Button.png"));
+	JButton OKBut = new JButton(new ImageIcon("./images/OKButton.png"));
+	TextField AnswerBox = new TextField();
 
 	// Methods
 	// Paint the screen
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		// Create the screen
-		g.setColor(Color.ORANGE);
-		g.fillRect(0, 0, 955, 720);
-		g.setFont(new Font("Arial", Font.BOLD, 30));  
-		g.setColor(Color.BLACK);
-		g.drawString("Game 3", 100, 100);
+		// Create the screen		
+		g.drawImage(imgBackground, 0, 0, null);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.PLAIN, 23));  
+		g.drawString(strQuestion, intPosX, 320);
+		g.drawString(strResult, 180, 450);
 	}
 	
 	// Constructor
 	public Game3(){
 		super();
+		setLayout(null);
+		CloseBut.setBounds(820, 270, 32, 32);
+		CloseBut.setContentAreaFilled(false);		//Make the button background invisible
+		CloseBut.setBorderPainted(false);
+		add(CloseBut);
+		AnswerBox.setBounds(180, 370, 500, 50);
+		AnswerBox.setFont(new Font("Arial", Font.BOLD, 30));
+		add(AnswerBox);
+        OKBut.setBounds(700, 370, 128, 50);
+        OKBut.setVisible(true);
+        OKBut.setContentAreaFilled(false);		//Make the button background invisible
+		OKBut.setBorderPainted(false);
+        add(OKBut);
+		intPosX = -50;
+		try{
+			imgBackground = ImageIO.read(new File("./Images/Game3Background.png"));
+		}catch(IOException e){
+			System.out.println("Unable to game 4 background image");
+		}
 	}
 }

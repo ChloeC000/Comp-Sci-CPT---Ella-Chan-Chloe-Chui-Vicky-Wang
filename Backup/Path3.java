@@ -117,7 +117,6 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 			if (Game5Panel.strResult != ""){
 				if (x >= 760 && x <= 787 && y >= 310 && y <= 339){
 					Game5Panel.setVisible(false);
-					intCurrentScreen = 3;
 					repaint();
 				}
 			}
@@ -125,7 +124,6 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 			if (Game6Panel.blnShowPaper1 == true && Game6Panel.blnShowPaper2 == true && Game6Panel.blnShowPaper3 == true && Game6Panel.blnShowPaper4 == true){
 				if (x >= 760 && x <= 782 && y >= 310 && y <= 330){
 					Game6Panel.setVisible(false);
-					intCurrentScreen = 3;	
 					repaint();
 				}	
 			}
@@ -219,11 +217,14 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 			TheTextArea.setVisible(true);
 			
 			if ((Path3Data.GetData(strObjName, 3).equals("beat") && blnRightFlow == true)) {
+				System.out.println("Game 5");	
 				intCurrentScreen = 8;	
 				Path3Data.Game5Beat();	
 				Game5MessageTimer.start();	
 				ResetView();				
 				Game5Panel.setVisible(true);	
+				imgTextBox.setVisible(false);				
+				TheTextArea.setVisible(false);
 				Game5Panel.strBeat = "Press the right jog wheel to create patterns of " + Path3Data.intBeat1 + ", " + Path3Data.intBeat2 + ", " + Path3Data.intBeat3 + " beats.";
 				Game5Panel.strResult = "";			
 				intTarget[0] = Path3Data.intBeat1;
@@ -233,10 +234,13 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 				intCurrentClicks = 0;
 				repaint();
 			} else if ((Path3Data.GetData(strObjName, 3).equals("puzzle") && blnRightFlow == true)) {
+				System.out.println("Game 6");		
 				intCurrentScreen = 9;		
 				ResetView();
 				Game6Panel.strMessage = Path3Data.GetData(strObjName, 5);	
 				Game6Panel.setVisible(true);
+				imgTextBox.setVisible(false);				
+				TheTextArea.setVisible(false);
 				intPaper1X = Game6Panel.intPaper1X;
 				intPaper1Y = Game6Panel.intPaper1Y;
 				intPaper2X = Game6Panel.intPaper2X;
@@ -281,14 +285,14 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 		}
 	}
 	public void CheckClickFlow(String strObj) {
-		if (Path3Data.GetData(strObjName, 6).equals(strObj)) {
-			if (blnResetFlow == true){
+	if (Path3Data.GetData(strObjName, 6).equals(strObj)) {
+		if (blnResetFlow == true){
 				blnRightFlow = true;
 			}
 		} else {
 			blnResetFlow = false;
 			blnRightFlow = false;
-			blnCompleteClick = false;
+			blnCompleteClick = true;
 		}
 		strObjName = strObj;
 	}
@@ -321,18 +325,7 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 			imgPath3Background = ImageIO.read(new File("images/Path3 Background.png"));
 		}catch(IOException e){
 			System.out.println("Unable to load the Path 3 image");
-		}   
-		
-		Game5Panel = new Game5();
-        Game5Panel.setBounds(0, 0, intGameWidth, intGameHeight);
-        Game5Panel.addMouseListener(this);
-        add(Game5Panel);  
-        Game6Panel = new Game6();
-        Game6Panel.setBounds(0, 0, intGameWidth, intGameHeight);
-        Game6Panel.addMouseListener(this);
-		Game6Panel.addMouseMotionListener(this);
-        add(Game6Panel); 
-             
+		}        
 		TheTextArea.setBounds(220, 335, 610, 100);
 		imgTextBox.setBounds(200, 320, 647, 111);		//Draw of the text box		
 		TheTextArea.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -345,6 +338,16 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 		TheTextArea.setVisible(false);
 		add(TheTextArea);
 		add(imgTextBox);		
+        
+        Game5Panel = new Game5();
+        Game5Panel.setBounds(0, 0, intGameWidth, intGameHeight);
+        Game5Panel.addMouseListener(this);
+        add(Game5Panel);  
+        Game6Panel = new Game6();
+        Game6Panel.setBounds(0, 0, intGameWidth, intGameHeight);
+        Game6Panel.addMouseListener(this);
+		Game6Panel.addMouseMotionListener(this);
+        add(Game6Panel); 
         
         CampfireBut = new JButton(new ImageIcon("./images/Campfire.png"));
         CampfireBut.setBounds(Integer.parseInt(Path3Data.GetData("Campfire", 1)), Integer.parseInt(Path3Data.GetData("Campfire", 2)), 121, 226);

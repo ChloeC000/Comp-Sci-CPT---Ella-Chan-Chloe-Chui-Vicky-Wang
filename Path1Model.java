@@ -33,7 +33,7 @@ public class Path1Model{
 			//loop within a loop to run 7 times for each column
 			for(intCount2 = 0; intCount2 < 7; intCount2++){
 				strSequence[intCount1][intCount2] = strSplit[intCount2];
-				System.out.println("Row "+intCount1 +": "+strSequence[intCount1][intCount2]);
+				//System.out.println("Row "+intCount1 +": "+strSequence[intCount1][intCount2]);
 			}
 		}
 	}

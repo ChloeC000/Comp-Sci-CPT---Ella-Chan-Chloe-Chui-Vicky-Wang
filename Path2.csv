@@ -1,8 +1,8 @@
-nest,120,120,none,none,Three stone watchers hide the song,owl
-owl,400,130,riddle,Flute|Car|Computer|Piano|0,What has holes but still sings?,clue
-clue,620,120,none,none,The middle statue speaks in symbols,statue1
-statue1,630,525,none,none,The moon watches first,statue2
-statue2,60,380,symbol,owl,The creature of night guards the way,statue3
-statue3,310,520,none,none,The final answer must be played,flute
-flute,760,180,none,none,You found the flute. The forest path opens.,done
+nest,120,120,none,none,The creature hides the song at midnight.,owl
+owl,400,130,riddle,Flute|Owl|Statue|Nest|0,What has holes but still sings?,flute
+flute,760,180,none,none,The middle statue speaks in symbols,statue1
+statue1,350,525,none,none,The statue of night robe guards the way.,statue2
+statue2,60,380,word,statue,Use these letters "A T E T U S" to form the word. You just investigated it.,statue3
+statue3,630,520,none,none,The secret is easily blown away.,clue
+clue,620,120,none,none,You found the clue. The forest path opens.,done
 
