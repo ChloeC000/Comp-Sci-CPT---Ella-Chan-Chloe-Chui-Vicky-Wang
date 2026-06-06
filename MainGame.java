@@ -5,6 +5,8 @@ import javax.swing.*;
 public class MainGame implements ActionListener, MouseListener, MouseMotionListener {
 	int intGameWidth = 955;
 	int intGameHeight = 760;
+	int intBuffer = 0;
+	int intBufferMax = 150;
 	JButton Path1But;
 	JButton Path2But;
 	JButton Path3But;
@@ -19,13 +21,13 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
     Transition1 Tran1Pane1;
     Transition2 Tran2Pane1;
     Transition3 Tran3Pane1;
+    Transition4 Tran4Pane1;
     Help HelpPanel;
     
 	public void actionPerformed(ActionEvent evt){
 		// Main program JComponent actionPerformed
 		if (evt.getSource() == Path1But) {
 			// Activate path 1
-            System.out.println("Path 1");
             Tran1Pane1.setVisible(true);
             IntroPanel.setVisible(false);
             Path1Panel.setVisible(false);
@@ -35,7 +37,6 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 			thePanel.repaint();
         } else if (evt.getSource() == Path2But) {
 			// Activate path 2
-			System.out.println("Path 2");
 			IntroPanel.setVisible(false);
 			Tran1Pane1.setVisible(false);
             Path1Panel.setVisible(false);
@@ -46,7 +47,6 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 			thePanel.repaint();
 		} else if (evt.getSource() == Path3But) {
 			// Activate path 3
-			System.out.println("Path 3");
 			IntroPanel.setVisible(false);
 			Tran1Pane1.setVisible(false);
             Path1Panel.setVisible(false);
@@ -58,10 +58,12 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 			thePanel.revalidate();
 			thePanel.repaint();
 		} else if (evt.getSource() == netPanel.helpBut) {
-			if (Path1Panel.isVisible() == true){
+			if (IntroPanel.isVisible() == true){
+				HelpPanel.ShowHelp(0);
+			} else if (Path1Panel.isVisible() == true){
 				//HelpPanel.ShowHelp(Path1Panel.GetCurrentHelpPage());
 			} else if (Path2Panel.isVisible() == true){
-				//HelpPanel.ShowHelp(Path2Panel.GetCurrentHelpPage());
+				HelpPanel.ShowHelp(2);
 			} else if (Path3Panel.isVisible() == true){
 				HelpPanel.ShowHelp(Path3Panel.GetCurrentHelpPage());
 			}		
@@ -71,7 +73,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 			HelpPanel.setVisible(false);
 			thePanel.repaint();
 		} else if (evt.getSource() == ImageTimer) {
-			if (IntroPanel.isVisible() == true){
+			if (IntroPanel.isVisible() == true){				
 				if (IntroPanel.intTitlePosY <= 150) {
 					IntroPanel.intTitlePosY = IntroPanel.intTitlePosY + 1;				
 				}			
@@ -85,12 +87,24 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 						Tran1Pane1.intPos1X = Tran1Pane1.intPos1X + 3;
 					}
 					if (Tran1Pane1.intPos2X >= 600){
-						Tran1Pane1.intPos2X = Tran1Pane1.intPos2X -2;						
+						Tran1Pane1.intPos2X = Tran1Pane1.intPos2X - 2;						
 					}	
 				} else {
 					Tran1Pane1.setVisible(false);
 					Path1Panel.setVisible(true);
 				}				
+			} else if (Path1Panel.isVisible() == true){
+				if (Path1Panel.Path1Complete() == true){
+					intBuffer = intBuffer + 1;
+					if (intBuffer >= intBufferMax){
+						System.out.println("Path 2");					
+						Tran2Pane1.setVisible(true);
+						thePanel.revalidate();
+						thePanel.repaint();
+					}	
+				} else {
+					intBuffer = 0;
+				}			
 			} else if (Tran2Pane1.isVisible() == true){
 				Tran2Pane1.intTranTime = Tran2Pane1.intTranTime + 1;
 				if (Tran2Pane1.intTranTime <= 250){
@@ -103,7 +117,21 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 				} else {
 					Tran2Pane1.setVisible(false);
 					Path2Panel.setVisible(true);
-				}				
+				} 				
+			} else if (Path2Panel.isVisible() == true){
+				if (Path2Panel.Path2Complete() == true){
+					intBuffer = intBuffer + 1;
+					if (intBuffer >= intBufferMax){
+						System.out.println("Path 3");		
+						Path2Panel.setVisible(false);			
+						Tran3Pane1.setVisible(true);
+						Path3Panel.ResetView();
+						thePanel.revalidate();
+						thePanel.repaint();
+					}				
+				} else {
+					intBuffer = 0;
+				}			
 			} else if (Tran3Pane1.isVisible() == true){
 				Tran3Pane1.intTranTime = Tran3Pane1.intTranTime + 1;
 				if (Tran3Pane1.intTranTime <= 250){
@@ -115,7 +143,29 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}	
 				} else {
 					Tran3Pane1.setVisible(false);
-					Path2Panel.setVisible(true);
+					Path3Panel.setVisible(true);
+				}				
+			} else if (Path3Panel.isVisible() == true){				
+				if (Path3Panel.Path3Complete() == true){
+					intBuffer = intBuffer + 1;
+					if (intBuffer >= intBufferMax){
+						System.out.println("End Game");		
+						Path3Panel.setVisible(false);			
+						Tran4Pane1.setVisible(true);
+						thePanel.repaint();
+					}
+				} else {
+					intBuffer = 0;
+				}								
+			} else if (Tran4Pane1.isVisible() == true){
+				Tran4Pane1.intTranTime = Tran4Pane1.intTranTime + 1;
+				if (Tran4Pane1.intTranTime <= 250){
+					if (Tran4Pane1.intPos1X <= 150){
+						Tran4Pane1.intPos1X = Tran4Pane1.intPos1X + 3;
+					}
+					if (Tran4Pane1.intPos2X >= 600){
+						Tran4Pane1.intPos2X = Tran4Pane1.intPos2X -2;						
+					}	
 				}				
 			}			
 			thePanel.repaint();
@@ -132,10 +182,12 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
     }     
     public void mouseClicked(MouseEvent evt) {
 		//Whenever user clicks, check if they are overlaying the deer's head and body
-		if ((evt.getX() >= 472 && evt.getX() <= 522 && evt.getY() >= 434 && evt.getY() <= 589) || (evt.getX() >=500 && evt.getX() <= 620 && evt.getY() >= 491 && evt.getY() < 580)) {
-			IntroPanel.setVisible(false);
-			Tran1Pane1.setVisible(true);
-		}		
+		if (IntroPanel.isVisible() == true && HelpPanel.isVisible() == false) {
+			if ((evt.getX() >= 472 && evt.getX() <= 522 && evt.getY() >= 434 && evt.getY() <= 589) || (evt.getX() >=500 && evt.getX() <= 620 && evt.getY() >= 491 && evt.getY() < 580)) {
+				IntroPanel.setVisible(false);
+				Tran1Pane1.setVisible(true);
+			}		
+		}
 	}
     public void mouseEntered(MouseEvent evt) {
 
@@ -154,7 +206,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 	public MainGame(){
 		// Controller links the View
 		 // Main window
-        theFrame = new JFrame("Main Program");
+        theFrame = new JFrame("Encroaching Mist");
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         theFrame.setSize(1280, intGameHeight);
 
@@ -219,6 +271,10 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         Tran3Pane1 = new Transition3();
         Tran3Pane1.setBounds(0, 0, intGameWidth, intGameHeight);
         thePanel.add(Tran3Pane1); 
+        
+        Tran4Pane1 = new Transition4();
+        Tran4Pane1.setBounds(0, 0, intGameWidth, intGameHeight);
+        thePanel.add(Tran4Pane1);
              
         HelpPanel.setVisible(false);
         IntroPanel.setVisible(true);
