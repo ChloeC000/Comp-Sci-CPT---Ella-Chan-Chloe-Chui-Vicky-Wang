@@ -21,6 +21,7 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 	boolean blnResetFlow;
 	boolean blnGame5Completed;
 	boolean blnGame6Completed;
+	boolean Path3Complete;
 	BufferedImage imgPath3Background = null;
 	JButton CampfireBut;
 	JButton RadioBut;

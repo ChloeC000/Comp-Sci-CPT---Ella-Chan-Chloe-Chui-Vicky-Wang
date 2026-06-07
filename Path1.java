@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Path1 extends JPanel implements ActionListener, MouseListener{
 	//Properties
 	BufferedImage imgPath1Background = null;
-	Path1Model Model1 = new Path1Model();
+	PathModel Model1 = new PathModel("Path1.csv");
 	Timer theTimer = new Timer(1000/60, this);
 	boolean blnGame1Completed;
 	boolean blnGame2Completed;
@@ -553,9 +553,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		Model1.loadArray();
 		
 		//Text Area
-		imgTextBox.setBounds(50,20,908, 90);		//Draw of the text box
-		TheTextArea.setBounds(110,33,800,90);
-		TheTextArea.setFont(new Font("Arial", Font.PLAIN, 18));
+		imgTextBox.setBounds(26,520,908, 155);		//Drawing of the text box
+		TheTextArea.setBounds(115,555,750,120);
+		TheTextArea.setFont(new Font("Arial", Font.PLAIN, 20));
 		TheTextArea.setForeground(Color.WHITE);
 		TheTextArea.setEditable(false);
 		TheTextArea.setLineWrap(true);

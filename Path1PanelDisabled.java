@@ -7,7 +7,7 @@ import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
 
-public class Path1Panel extends JPanel implements ActionListener, MouseListener{
+public class Path1PanelDisabled extends JPanel implements ActionListener, MouseListener{
 	//Properties
 	BufferedImage imgPath1Background = null;
 	PathModel Model1 = new PathModel("Path1.csv");
@@ -164,8 +164,6 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 
 	}
 
-	
-	
 	
 	public void actionPerformed(ActionEvent evt){
 		this.repaint();
@@ -505,8 +503,6 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 			imgTextBox.setVisible(false);				
 			TheTextArea.setVisible(false);
 		 }
-
-		
 	}
 	public void mouseClicked(MouseEvent evt){
 		if (evt.getSource() == this && imgTextBox.isShowing()){	//If you click the mouse while the textbox is showing, make it invisible again
@@ -534,7 +530,7 @@ public class Path1Panel extends JPanel implements ActionListener, MouseListener{
 	}
 	
 	//Constructor
-	public Path1Panel(){
+	public Path1PanelDisabled(){
 		//Set panel parameters
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(1280, 720));

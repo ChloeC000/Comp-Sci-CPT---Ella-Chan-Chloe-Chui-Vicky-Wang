@@ -94,7 +94,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					Path1Panel.setVisible(true);
 				}				
 			} else if (Path1Panel.isVisible() == true){
-				if (Path1Panel.Path1Complete() == true){
+				if (Path1Panel.Path1Complete == true){
 					intBuffer = intBuffer + 1;
 					if (intBuffer >= intBufferMax){
 						System.out.println("Path 2");					
@@ -146,7 +146,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					Path3Panel.setVisible(true);
 				}				
 			} else if (Path3Panel.isVisible() == true){				
-				if (Path3Panel.Path3Complete() == true){
+				if (Path3Panel.Path3Complete == true){
 					intBuffer = intBuffer + 1;
 					if (intBuffer >= intBufferMax){
 						System.out.println("End Game");		
