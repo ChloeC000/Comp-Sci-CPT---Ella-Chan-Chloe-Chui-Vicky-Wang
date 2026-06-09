@@ -21,8 +21,8 @@ public class MainEscapeRoom implements ActionListener{
 	NetPanel ConnectionPanel = new NetPanel();
 	
 	//Introduction Panel
-	IntroductionView IntroductionPanel = new IntroductionView();
-	Path1Panel Panel1 = new Path1Panel();
+
+	Path1 Panel1 = new Path1();
 	Path2Panel Panel2 = new Path2Panel();
 	
 	//Methods
@@ -34,8 +34,7 @@ public class MainEscapeRoom implements ActionListener{
 	//Constructor
 	public MainEscapeRoom(){
 		
-		//theFrame.setContentPane(IntroductionPanel.IntroPanel);
-		theFrame.setContentPane(Panel1);
+		theFrame.setContentPane(Panel2);
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         theFrame.pack();
         theFrame.setVisible(true);

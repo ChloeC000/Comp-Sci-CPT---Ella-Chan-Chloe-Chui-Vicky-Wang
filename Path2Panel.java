@@ -11,7 +11,7 @@ public class Path2Panel extends JPanel implements ActionListener, MouseListener{
 	
 	//Properties
 	BufferedImage imgPath2Background = null;
-	Path2Model Model2 = new Path2Model();
+	PathModel Model2 = new PathModel("Path2.csv");
 	Timer theTimer = new Timer(1000/60, this);
 	
 	String strNextObject = "";
