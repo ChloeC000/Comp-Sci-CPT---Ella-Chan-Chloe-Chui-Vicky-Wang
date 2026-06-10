@@ -67,7 +67,6 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Path3Panel.setVisible(false);
             Tran4Pane1.setVisible(false);
             Path2Panel.add(TimerPane);
-            TimerPane.Timer.start();
 			thePanel.revalidate();
 			thePanel.repaint();
 		} else if (evt.getSource() == Path3But) {
@@ -82,7 +81,6 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Tran4Pane1.setVisible(false);
             Path3Panel.ResetView();
             Path3Panel.add(TimerPane);
-            TimerPane.Timer.start();
 			thePanel.revalidate();
 			thePanel.repaint();
 		} else if (evt.getSource() == netPanel.helpBut) {
@@ -136,6 +134,8 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 				} else {
 					Tran1Pane1.setVisible(false);
 					Path1Panel.setVisible(true);
+					Path1Panel.add(TimerPane);
+					TimerPane.Timer.start();
 				}				
 			// Check if the path 1 is compleated and open the path 2 transition screen
 			} else if (Path1Panel.isVisible() == true){

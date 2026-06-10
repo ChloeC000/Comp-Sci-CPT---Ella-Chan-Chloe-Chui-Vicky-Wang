@@ -732,10 +732,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		this.add(CompassLabelImage);
 		
 		//Answer
-		btnAnswer.setBounds(445,70,128,50);
+		btnAnswer.setBounds(470,90,80,30);
 		btnAnswer.addActionListener(this);
-		btnAnswer.setContentAreaFilled(false);
-		btnAnswer.setBorderPainted(false);
 		btnAnswer.setVisible(false);
 		this.add(btnAnswer);
 		
