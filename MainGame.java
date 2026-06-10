@@ -38,6 +38,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
     Transition3 Tran3Pane1;
     Transition4 Tran4Pane1;
     Help HelpPanel;
+    TimerPanel TimerPane;
     
 	public void actionPerformed(ActionEvent evt){
 		if (evt.getSource() == Path1But) {
@@ -50,6 +51,9 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Tran3Pane1.setVisible(false);
             Path3Panel.setVisible(false);
             Tran4Pane1.setVisible(false);
+            //Add and start timer
+            Path1Panel.add(TimerPane);
+            TimerPane.Timer.start();
 			thePanel.revalidate();
 			thePanel.repaint();
         } else if (evt.getSource() == Path2But || (evt.getSource() == Path1Panel.btnExitDeer && Path1Panel.Path1Complete() == true)) {
@@ -62,6 +66,8 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Tran3Pane1.setVisible(false);
             Path3Panel.setVisible(false);
             Tran4Pane1.setVisible(false);
+            Path2Panel.add(TimerPane);
+            TimerPane.Timer.start();
 			thePanel.revalidate();
 			thePanel.repaint();
 		} else if (evt.getSource() == Path3But) {
@@ -75,6 +81,8 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Path3Panel.setVisible(false);
             Tran4Pane1.setVisible(false);
             Path3Panel.ResetView();
+            Path3Panel.add(TimerPane);
+            TimerPane.Timer.start();
 			thePanel.revalidate();
 			thePanel.repaint();
 		} else if (evt.getSource() == netPanel.helpBut) {
@@ -272,7 +280,10 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
                 }
             }
         }
-        );        
+        );    
+        //Create the timer Panel
+        TimerPane = new TimerPanel();
+        TimerPane.setBounds(0,0,100,50);   
         
         // Add the help panel
         HelpPanel = new Help();

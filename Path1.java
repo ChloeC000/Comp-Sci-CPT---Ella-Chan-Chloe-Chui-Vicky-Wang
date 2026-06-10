@@ -74,7 +74,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	//Directions/Deer Puzzle
 	JButton btnExitDeer = new JButton(new ImageIcon("images/Exit Button.png"));
 	String strAnswerDeer = "";
-	JButton btnAnswer = new JButton(new ImageIcon("images/Deer Puzzle/AnswerButton.png"));
+	JButton btnAnswer = new JButton("Answer");
 	JButton btnWest = new  JButton(new ImageIcon("images/Deer Puzzle/West Key.png"));
 	JButton btnNorth = new  JButton(new ImageIcon("images/Deer Puzzle/North Key.png"));
 	JButton btnSouth = new  JButton(new ImageIcon("images/Deer Puzzle/South Key.png"));
