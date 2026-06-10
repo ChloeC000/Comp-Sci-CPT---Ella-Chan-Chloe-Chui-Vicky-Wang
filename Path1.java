@@ -74,7 +74,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	//Directions/Deer Puzzle
 	JButton btnExitDeer = new JButton(new ImageIcon("images/Exit Button.png"));
 	String strAnswerDeer = "";
-	JButton btnAnswer = new JButton("Answer");
+	JButton btnAnswer = new JButton(new ImageIcon("images/Deer Puzzle/AnswerButton.png"));
 	JButton btnWest = new  JButton(new ImageIcon("images/Deer Puzzle/West Key.png"));
 	JButton btnNorth = new  JButton(new ImageIcon("images/Deer Puzzle/North Key.png"));
 	JButton btnSouth = new  JButton(new ImageIcon("images/Deer Puzzle/South Key.png"));
@@ -439,6 +439,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		 if(evt.getSource() == btnCard12){
 			  if(intCardNum == 11){		//Puzzle is solved!
 				 btnCard12.setIcon(CardBack);
+				 // Set the game 1 is completed
+				 blnGame1Completed = true;
 				 blnHare = true;
 				 TheTextArea.setText("In your minds eye, you see a pack of the cards. It appears you've put them in the correct order."); 		
 				 imgTextBox.setVisible(true);				
@@ -478,6 +480,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		 }else if(evt.getSource() == btnAnswer){
 			 if(strAnswerDeer.equals(Model1.strSequence[6][4])){	//If the answer correct, than allow the user to move on
 				 blnDeerStanding = true;
+				 // Set the game 2 is completed
+				 blnGame2Completed = true;
 				 TheTextArea.setText("Though you've solved his journey, it seems the owner of this journal has also dissapeared. You wonder if you could use this journal to escape somehow."); 		
 				 imgTextBox.setVisible(true);				
 				 TheTextArea.setVisible(true);
@@ -728,8 +732,10 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		this.add(CompassLabelImage);
 		
 		//Answer
-		btnAnswer.setBounds(470,90,80,30);
+		btnAnswer.setBounds(445,70,128,50);
 		btnAnswer.addActionListener(this);
+		btnAnswer.setContentAreaFilled(false);
+		btnAnswer.setBorderPainted(false);
 		btnAnswer.setVisible(false);
 		this.add(btnAnswer);
 		

@@ -41,19 +41,19 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
     
 	public void actionPerformed(ActionEvent evt){
 		if (evt.getSource() == Path1But) {
-			// Activate path 1 screen
-            Tran1Pane1.setVisible(true);
+			// Direct activate path 1 screen by the shortcut key
             IntroPanel.setVisible(false);
-            Tran1Pane1.setVisible(false);
+            Tran1Pane1.setVisible(true);
             Path1Panel.setVisible(false);
             Tran2Pane1.setVisible(false);
             Path2Panel.setVisible(false);
             Tran3Pane1.setVisible(false);
             Path3Panel.setVisible(false);
+            Tran4Pane1.setVisible(false);
 			thePanel.revalidate();
 			thePanel.repaint();
-        } else if (evt.getSource() == Path2But) {
-			// Activate path 2 screen
+        } else if (evt.getSource() == Path2But || (evt.getSource() == Path1Panel.btnExitDeer && Path1Panel.Path1Complete() == true)) {
+			// Direct activate path 2 screen by the shortcut key or when Path 1 is completed
 			IntroPanel.setVisible(false);
 			Tran1Pane1.setVisible(false);
             Path1Panel.setVisible(false);
@@ -61,10 +61,11 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Path2Panel.setVisible(false);
             Tran3Pane1.setVisible(false);
             Path3Panel.setVisible(false);
+            Tran4Pane1.setVisible(false);
 			thePanel.revalidate();
 			thePanel.repaint();
 		} else if (evt.getSource() == Path3But) {
-			// Activate path 3 screen
+			// Direct activate path 3 screen by the shortcut key
 			IntroPanel.setVisible(false);
 			Tran1Pane1.setVisible(false);
             Path1Panel.setVisible(false);
@@ -72,6 +73,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Path2Panel.setVisible(false);
             Tran3Pane1.setVisible(true);
             Path3Panel.setVisible(false);
+            Tran4Pane1.setVisible(false);
             Path3Panel.ResetView();
 			thePanel.revalidate();
 			thePanel.repaint();
@@ -188,6 +190,9 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					if (intBuffer >= intBufferMax){
 						Path3Panel.setVisible(false);			
 						Tran4Pane1.setVisible(true);
+						Path1But.setVisible(false);
+						Path2But.setVisible(false);
+						Path3But.setVisible(false);
 						thePanel.repaint();
 					}
 				} else {
@@ -275,6 +280,30 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         HelpPanel.BackBut.addActionListener(this);
         thePanel.add(HelpPanel);
         
+        // Path 1 shortcut key
+        Path1But =  new JButton(new ImageIcon("./images/Path1Button.png"));
+        Path1But.setBounds(10, 660, 128, 50);
+        Path1But.setContentAreaFilled(false);		//Make the button background invisible
+		Path1But.setBorderPainted(false);
+        Path1But.addActionListener(this);
+        thePanel.add(Path1But);
+        
+        // Path 2 shortcut key
+        Path2But = new JButton(new ImageIcon("./images/Path2Button.png"));
+        Path2But.setBounds(160, 660, 128, 50);
+        Path2But.setContentAreaFilled(false);		
+		Path2But.setBorderPainted(false);
+        Path2But.addActionListener(this);
+        thePanel.add(Path2But);
+        
+        // Path 3 shortcut key
+        Path3But = new JButton(new ImageIcon("./images/Path3Button.png"));
+        Path3But.setBounds(310, 660, 128, 50);
+        Path3But.setContentAreaFilled(false);		
+		Path3But.setBorderPainted(false);
+        Path3But.addActionListener(this);
+        thePanel.add(Path3But);
+        
         // Add the intro panel
         IntroPanel = new Intro();
         IntroPanel.setBounds(0, 0, intGameWidth, intGameHeight);
@@ -285,6 +314,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         // Add the path 1 panel
         Path1Panel = new Path1();
         Path1Panel.setBounds(0, 0, intGameWidth, intGameHeight);
+        Path1Panel.btnExitDeer.addActionListener(this);
         thePanel.add(Path1Panel);
         
         // Add the path 2 panel
@@ -323,24 +353,6 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         Path1Panel.setVisible(false);
         Path2Panel.setVisible(false);
         Path3Panel.setVisible(false);        
-        
-        // Path 1
-        Path1But = new JButton("Path 1");
-        Path1But.setBounds(0, 700, 120, 30);
-        Path1But.addActionListener(this);
-        thePanel.add(Path1But);
-        
-        // Path 2
-        Path2But = new JButton("Path 2");
-        Path2But.setBounds(120, 700, 120, 30);
-        Path2But.addActionListener(this);
-        thePanel.add(Path2But);
-        
-        // Path 3
-        Path3But = new JButton("Path 3");
-        Path3But.setBounds(240, 700, 120, 30);
-        Path3But.addActionListener(this);
-        thePanel.add(Path3But);
         
         thePanel.setComponentZOrder(Path1But, 0);
 		thePanel.setComponentZOrder(Path2But, 0);
