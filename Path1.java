@@ -476,7 +476,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 			 imgTextBox.setVisible(true);				
 			 TheTextArea.setVisible(true);
 		 }else if(evt.getSource() == btnAnswer){
-			 if(strAnswerDeer.equals(Model1.strSequence[6][4])){	//If the answer correct, than allow the user to move one
+			 if(strAnswerDeer.equals(Model1.strSequence[6][4])){	//If the answer correct, than allow the user to move on
 				 blnDeerStanding = true;
 				 TheTextArea.setText("Though you've solved his journey, it seems the owner of this journal has also dissapeared. You wonder if you could use this journal to escape somehow."); 		
 				 imgTextBox.setVisible(true);				

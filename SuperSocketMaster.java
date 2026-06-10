@@ -1,3 +1,4 @@
+// This is the SuperSocketMaster Java program created by our teacher Mr. Cadawas. This CPT game uses this Java program to send network message.
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.AWTEventMulticaster;
@@ -204,6 +205,7 @@ public class SuperSocketMaster{
         // and uses each object's sendText method.
         ////System.out.println("Sending message to all "+portconnections.size()+" clients: "+strText);
         for (int intCounter = 0; intCounter < clientconnections.size(); intCounter++) {
+			System.out.println(strText);
           clientconnections.get(intCounter).sendText(strText);
         }
         // restarting Heartbeat after last message that was sent.
