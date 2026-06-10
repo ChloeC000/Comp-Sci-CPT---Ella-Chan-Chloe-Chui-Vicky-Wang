@@ -35,7 +35,6 @@ public class PathModel{
 	
 	//Methods
 	//Load csv file into array
-	/**Takes the data from the csv file and loads it into an array*/
 	public void loadArray(){
 		for(intCount1 = 0; intCount1< 7; intCount1++){
 			//Read each line once than split
@@ -52,8 +51,8 @@ public class PathModel{
 			}
 		}
 	}
-	//Read the object name and assign a row number to it
-	/**Read the object name and assign a row number to it*/
+	
+	//Read the row of the array and decide what puzzle/clue to do based on the csv file
 	public int AssignRow(String strObject){
 		//Read the first column of each row and match the object to it.
 		intCount1 = -1;
@@ -66,8 +65,6 @@ public class PathModel{
 		blnMatch = false;
 		return intCount1;
 	}
-	//Read the row of the array and decide what puzzle/clue to do based on the csv file
-	/**Read the row of the array and decide what puzzle/clue to do based on the csv file*/
 	public boolean AssignAction(int intRow){
 		//Look if there is a puzzle assigned for that row
 		if(!strSequence[intRow][4].equals("none")){
@@ -125,13 +122,8 @@ public class PathModel{
 	}	
 	
 	//Constructor
-<<<<<<< Updated upstream
-	/**Constructor that takes the name of the csv file to run the methods*/
-	public PathModel(String strCurrentFile){
-=======
 	public PathModel(String strCurrentFile){		
 		// Read the CSV file passing from the Controller. The parameter is the CSV filename.
->>>>>>> Stashed changes
 		try{
 			SequenceFile = new BufferedReader(new FileReader(strCurrentFile));
 		}catch(IOException e){
