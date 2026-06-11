@@ -90,7 +90,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		g.drawImage(imgPath1Background, 0, 0, null);
 	}
 	
-	//Transition
+	//Transition screen
 	public void Transition(){
 		TransitionScreen.setVisible(true);
 		TheTextArea.setText("When you look back, you watch the deer stagger to its feet. Its movement is sluggish and it seems wary but you can sense it wants to convey something."); 		
@@ -99,7 +99,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	}
 	
 	//Puzzles
-	//Reset Card Puzzle
+	//Reset Card Puzzle by turning all cards back to the "front" side
 	public void ResetCard(){
 		btnCard1.setIcon(new ImageIcon("images/cards/Card1.png"));
 		btnCard2.setIcon(new ImageIcon("images/cards/Card2.png"));
@@ -118,9 +118,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	public void CardPuzzle(){
 		//Disable all other buttons temporarily
 		ActionEnabled = false;
-		btnExitCards.setVisible(true);
+		btnExitCards.setVisible(true);	//Add the ability to exit the puzzle
 		btnExitCards.setEnabled(true);
-		//Top Row
+		//Draw the top Row of cards
 		btnCard6.setVisible(true);
 		btnCard6.setEnabled(true);
 		btnCard1.setVisible(true);
@@ -129,7 +129,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		btnCard9.setEnabled(true);
 		btnCard5.setVisible(true);
 		btnCard5.setEnabled(true);
-		//Second Row
+		//Draw the second row of cards
 		btnCard8.setVisible(true);
 		btnCard8.setEnabled(true);
 		btnCard10.setVisible(true);
@@ -138,7 +138,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		btnCard3.setEnabled(true);
 		btnCard12.setVisible(true);
 		btnCard12.setEnabled(true);
-		//Bottom Row
+		//Draw the bottom row of cards
 		btnCard2.setVisible(true);
 		btnCard2.setEnabled(true);
 		btnCard4.setVisible(true);
@@ -151,8 +151,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	//Deer/Directions Puzzle
 	public void DirectionPuzzle(){	//Disable other buttons and set the puzzle components to visible
 		ActionEnabled = false;
-		btnAnswer.setVisible(true);
-		btnExitDeer.setVisible(true);
+		btnAnswer.setVisible(true);	
+		btnExitDeer.setVisible(true);	//Exit the puzzle
 		btnWest.setVisible(true);
 		btnNorth.setVisible(true);
 		btnSouth.setVisible(true);
@@ -169,11 +169,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		//If the deer body button is clicked: This is the first object
 		if(evt.getSource() == btnDeerBody && ActionEnabled == true){
 			intObjectRow = Model1.AssignRow("deer body");		//Figure out on which line of the csv file the object is on
-			//System.out.println(intObjectRow);
 			
 			if(blnDeerBody == false){
 				blnDeerBody = Model1.AssignAction(intObjectRow); 	//Check if the object has a puzzle if it has never been clicked before
-				//System.out.println(blnDeerBody);
 			}
 			if(blnDeerBody == true){ 							//After getting a up to date status, check if it is okay to display the clue
 				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 		//If so, get clue for the array
@@ -182,7 +180,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				//Unlock the next object
 				if (DeerComplete == false){
 					strNextObject = Model1.strSequence[intObjectRow][6];			//Get next object
-					DeerComplete = true; 				//So the next object only gets update once if it has not been done before
+					DeerComplete = true; 				//So the next object only gets update once, if it has not been done before
 				}
 			}
 			
@@ -196,8 +194,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 				if (HuntingComplete == false){
-					strNextObject = Model1.strSequence[intObjectRow][6];			//Get next object
-					HuntingComplete = true; 				//So the next object only gets update once if it has not been done before
+					strNextObject = Model1.strSequence[intObjectRow][6];			//Get next object once this one is complete
+					HuntingComplete = true; 				
 				}
 			}else{														//If the object has not been unlocked, give alternate clue
 				TheTextArea.setText("Looking at the rifle, you find nothing of note. Better not touch it for now, it could be dangerous"); 		
@@ -213,7 +211,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
-				if(BagComplete == false){
+				if(BagComplete == false){	//Unlock next object
 					strNextObject = Model1.strSequence[intObjectRow][6];	
 					BagComplete = true;
 					//Transition
@@ -233,7 +231,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setVisible(true);
 				CardPuzzle();
 			}else{														
-				TheTextArea.setText("It's a rabbit! Or is it a hare? It's sitting on a pack of cards."); 		
+				TheTextArea.setText("It's a rabbit! Or is it a hare? It's sitting on a pack of cards.");  //If the object has not been unlocked yet, give this text instead		
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 			}			
@@ -248,9 +246,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				}
 			}
 		 }
-		 
+		 //If the burrow is clicked
 		 if(evt.getSource() == btnBurrow && ActionEnabled == true){
-			if(strNextObject.equals("tree burrow") || blnBurrow == true){	//What to do if the object has been unlocked
+			if(strNextObject.equals("tree burrow") || blnBurrow == true){	//Burrow Object: What to do if the object has been unlocked
 				intObjectRow = Model1.AssignRow("tree burrow");
 				blnBurrow = Model1.AssignAction(intObjectRow);
 				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 
@@ -266,7 +264,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setVisible(true);
 			}			
 		 }
-		  if(evt.getSource() == btnSquirrel && ActionEnabled == true){
+		 //If the squirrel is clicked
+		  if(evt.getSource() == btnSquirrel && ActionEnabled == true){	
 			if(strNextObject.equals("squirrel") || blnSquirrel == true){	
 				intObjectRow = Model1.AssignRow("squirrel");
 				blnSquirrel = Model1.AssignAction(intObjectRow);
@@ -283,11 +282,11 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setVisible(true);
 			}			
 		 }
-		 
+		 //Standing deer object
 		  if(evt.getSource() == btnDeerStand && ActionEnabled == true){
 			intObjectRow = Model1.AssignRow("deer");			
 			if(strNextObject.equals("deer") && blnDeerStanding != true){ 			//if they have not yet solved the puzzle yet, give them the puzzle by making it visible
-				TheTextArea.setText("It still seems unwell but there is nothing you can do to help, except..."); 		
+				TheTextArea.setText("It still seems unwell but there is nothing you can do to help, except..."); //Provide alternate clue		
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 				//Puzzle
@@ -301,8 +300,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				if (DeerStandingComplete == false){
 					strNextObject = Model1.strSequence[intObjectRow][6];
 					DeerStandingComplete = true;
-					Path1Complete = true;
-					//System.out.println(strNextObject);
+					Path1Complete = true;	//Complete this path
 				}
 			}
 		 }
@@ -439,13 +437,12 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		 if(evt.getSource() == btnCard12){
 			  if(intCardNum == 11){		//Puzzle is solved!
 				 btnCard12.setIcon(CardBack);
-				 // Set the game 1 is completed
-				 blnGame1Completed = true;
 				 blnHare = true;
-				 TheTextArea.setText("In your minds eye, you see a pack of the cards. It appears you've put them in the correct order."); 		
+				 blnGame1Completed = true;
+				 TheTextArea.setText("In your minds eye, you see a pack of the cards. It appears you've put them in the correct order."); 	//Indicate the puzzle is solved	
 				 imgTextBox.setVisible(true);				
 				 TheTextArea.setVisible(true);
-				 HatLabel.setVisible(true);
+				 HatLabel.setVisible(true);	//Show the magicians hat
 			 }else{
 				 intCardNum = 0;
 				 ResetCard();
@@ -454,9 +451,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		 
 		 //Directions Puzzle Below
 		 if(evt.getSource() == btnWest){
-			 strAnswerDeer = strAnswerDeer +" West";
+			 strAnswerDeer = strAnswerDeer +" West";	//Append the user input to the answer string that can be compared to the correct answer
 			 //System.out.println(strAnswerDeer);
-			 TheTextArea.setText("Your answer is: " + strAnswerDeer);
+			 TheTextArea.setText("Your answer is: " + strAnswerDeer);	//Append the user input to the text box so they can see what they put in
 			 imgTextBox.setVisible(true);				
 			 TheTextArea.setVisible(true);
 		 }else if(evt.getSource() == btnNorth){
@@ -477,23 +474,22 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 			 TheTextArea.setText("Your answer is: " + strAnswerDeer);
 			 imgTextBox.setVisible(true);				
 			 TheTextArea.setVisible(true);
-		 }else if(evt.getSource() == btnAnswer){
-			 if(strAnswerDeer.equals(Model1.strSequence[6][4])){	//If the answer correct, than allow the user to move on
+		 }else if(evt.getSource() == btnAnswer){	//trigger button to check if the inputed answer is correct
+			 if(strAnswerDeer.equals(Model1.strSequence[6][4])){	//If the answer inputed by the user is the same as the answer specified in the csv --> the answer is correct; allow the user to move on
 				 blnDeerStanding = true;
-				 // Set the game 2 is completed
-				 blnGame2Completed = true;
-				 TheTextArea.setText("Though you've solved his journey, it seems the owner of this journal has also dissapeared. You wonder if you could use this journal to escape somehow."); 		
+				 TheTextArea.setText("Though you've solved his journey, it seems the owner of this journal has also dissapeared. You wonder if you could use this journal to escape somehow."); 	//Indicate puzzle is solved
 				 imgTextBox.setVisible(true);				
 				 TheTextArea.setVisible(true);
+				 blnGame2Completed = true;
 			 }else{	//If incorrect, then reset the answer
 				 strAnswerDeer = "";
 				 TheTextArea.setText("Your answer is: " + strAnswerDeer);
 			 }
 		 }
 		 
-		 //Exit the direction puzzle
+		 //Exit the direction puzzle, make all puzzle components invisible and re-enable object buttons
 		 if(evt.getSource() == btnExitDeer){
-			 ActionEnabled = true;
+			ActionEnabled = true;
 			btnAnswer.setVisible(false);
 			btnExitDeer.setVisible(false);
 			btnWest.setVisible(false);
@@ -531,7 +527,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	}
 	public void mouseExited(MouseEvent evt){
 	}
-	public boolean Path1Complete() {
+	public boolean Path1Complete() {	//Check if path 1 is complete
 		if (blnGame1Completed == true && blnGame2Completed == true) {
 			return true;
 		} else {
@@ -556,7 +552,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		//Load array
 		Model1.loadArray();
 		
-		//Text Area
+		//Text Area/Box
 		imgTextBox.setBounds(26,520,908, 155);		//Drawing of the text box
 		TheTextArea.setBounds(115,555,750,120);
 		TheTextArea.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -745,9 +741,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		btnExitDeer.addActionListener(this);
 		this.add(btnExitDeer);
 		
-		//////////////////////////////////////////////
+		///////////////////////////////////////////
 		//End of Puzzle section: Draw the objects//
-		//////////////////////////////////////////////
+		///////////////////////////////////////////
 		//Deer Body
 		btnDeerBody.setBounds(Integer.parseInt(Model1.strSequence[0][1]), Integer.parseInt(Model1.strSequence[0][2]), 502, 138);	//Get the object location from the csv file
 		btnDeerBody.setContentAreaFilled(false);		//Make the button background invisible
