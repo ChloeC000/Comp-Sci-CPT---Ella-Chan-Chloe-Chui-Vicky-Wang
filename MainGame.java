@@ -142,17 +142,20 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}
 					if (Tran1Pane1.intPos2X >= 600){
 						Tran1Pane1.intPos2X = Tran1Pane1.intPos2X - 2;						
-					}	
+					}	// Check which is the next panel to show
+				} else if (Path1Panel.Path1Complete() == false && netPanel.blnPath1CompleteByPartner == false) {
+					InvisiblePanel();		
+					Path1Panel.setVisible(true);
+				} else if (Path2Panel.Path2Complete() == false && netPanel.blnPath2CompleteByPartner == false) {
+					InvisiblePanel();		
+					Tran2Pane1.setVisible(true);
+				} else if (Path3Panel.Path3Complete() == false && netPanel.blnPath3CompleteByPartner == false) {
+					InvisiblePanel();
+					Tran3Pane1.setVisible(true);
 				} else {
-					Tran1Pane1.setVisible(false);
-					if (netPanel.blnPath1CompleteByPartner == true){
-						InvisiblePanel();
-						Tran2Pane1.setVisible(true);
-					} else {
-						InvisiblePanel();
-						Path1Panel.setVisible(true);
-					}					
-				}				
+					InvisiblePanel();
+					Tran4Pane1.setVisible(true);
+				}									
 			// Check if the path 1 is compleated and open the path 2 transition screen
 			} else if (Path1Panel.isVisible() == true){
 				GameTimer.start();
@@ -165,10 +168,21 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 						if (netPanel.blnPath1CompleteByPartner == false) {
 							netPanel.SendMessage(strSystemMessageLabel + "Path 1 completed.");
 						}
-						InvisiblePanel();		
-						Tran2Pane1.setVisible(true);
-						thePanel.revalidate();
-						thePanel.repaint();
+						// Check which is the next panel to show
+						if (Path2Panel.Path2Complete() == false && netPanel.blnPath2CompleteByPartner == false) {
+							InvisiblePanel();		
+							Tran2Pane1.setVisible(true);
+							thePanel.revalidate();
+							thePanel.repaint();
+						} else if (Path3Panel.Path3Complete() == false && netPanel.blnPath3CompleteByPartner == false) {
+							InvisiblePanel();
+							Tran3Pane1.setVisible(true);
+							Path3Panel.ResetView();
+						} else {
+							InvisiblePanel();
+							Tran4Pane1.setVisible(true);
+							thePanel.repaint();
+						}
 					}	
 				} else {
 					intBuffer = 0;
@@ -183,17 +197,20 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}
 					if (Tran2Pane1.intPos2X >= 600){
 						Tran2Pane1.intPos2X = Tran2Pane1.intPos2X -2;						
-					}	
+					}	// Check which is the next panel to show
+				} else if (Path2Panel.Path2Complete() == false && netPanel.blnPath2CompleteByPartner == false) {
+					InvisiblePanel();		
+					Path2Panel.setVisible(true);					
+				} else if (Path1Panel.Path1Complete() == false && netPanel.blnPath1CompleteByPartner == false) {
+					InvisiblePanel();		
+					Tran1Pane1.setVisible(true);
+				} else if (Path3Panel.Path3Complete() == false && netPanel.blnPath3CompleteByPartner == false) {
+					InvisiblePanel();
+					Tran3Pane1.setVisible(true);
 				} else {
-					Tran2Pane1.setVisible(false);
-					if (netPanel.blnPath2CompleteByPartner == true){
-						InvisiblePanel();
-						Tran3Pane1.setVisible(true);
-					} else {
-						InvisiblePanel();
-						Path2Panel.setVisible(true);
-					}					
-				} 				
+					InvisiblePanel();
+					Tran4Pane1.setVisible(true);
+				}					
 			// Check if the path 2 is compleated and open the path 3 transition screen
 			} else if (Path2Panel.isVisible() == true){
 				GameTimer.start();
@@ -206,12 +223,22 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 						// Check if path 2 is completed by another player or not. If it is, skip path 2.
 						if (netPanel.blnPath2CompleteByPartner == false) {
 							netPanel.SendMessage(strSystemMessageLabel + "Path 2 completed.");
-						}						
-						InvisiblePanel();
-						Tran3Pane1.setVisible(true);
-						Path3Panel.ResetView();
-						thePanel.revalidate();
-						thePanel.repaint();
+						}
+						// Check which is the next panel to show
+						if (Path1Panel.Path1Complete() == false && netPanel.blnPath1CompleteByPartner == false) {
+							InvisiblePanel();		
+							Tran1Pane1.setVisible(true);
+							thePanel.revalidate();
+							thePanel.repaint();
+						} else if (Path3Panel.Path3Complete() == false && netPanel.blnPath3CompleteByPartner == false) {
+							InvisiblePanel();
+							Tran3Pane1.setVisible(true);
+							Path3Panel.ResetView();
+						} else {
+							InvisiblePanel();
+							Tran4Pane1.setVisible(true);
+							thePanel.repaint();
+						}
 					}				
 				} else {
 					intBuffer = 0;
@@ -226,17 +253,20 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}
 					if (Tran3Pane1.intPos2X >= 600){
 						Tran3Pane1.intPos2X = Tran3Pane1.intPos2X -2;						
-					}	
+					}	// Check which is the next panel to show
+				} else if (Path3Panel.Path3Complete() == false && netPanel.blnPath3CompleteByPartner == false) {
+					InvisiblePanel();		
+					Path3Panel.setVisible(true);
+					Path3Panel.ResetView();					
+				} else if (Path2Panel.Path2Complete() == false && netPanel.blnPath2CompleteByPartner == false) {
+					InvisiblePanel();		
+					Tran2Pane1.setVisible(true);
+				} else if (Path1Panel.Path1Complete() == false && netPanel.blnPath1CompleteByPartner == false) {
+					InvisiblePanel();
+					Tran1Pane1.setVisible(true);
 				} else {
-					Tran3Pane1.setVisible(false);
-					if (netPanel.blnPath3CompleteByPartner == true){
-						InvisiblePanel();
-						Tran4Pane1.setVisible(true);
-					} else {
-						InvisiblePanel();
-						Path3Panel.ResetView();
-						Path3Panel.setVisible(true);
-					}						
+					InvisiblePanel();
+					Tran4Pane1.setVisible(true);
 				}				
 			// Check if the path 3 is compleated and open the ending screen
 			} else if (Path3Panel.isVisible() == true){		
@@ -245,24 +275,27 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 				Path2But.setIcon(new ImageIcon("./images/Path2Button.png"));
 				Path3But.setIcon(new ImageIcon("./images/Path3ButtonOn.png"));		
 				if (Path3Panel.Path3Complete() == true || netPanel.blnPath3CompleteByPartner == true){
-					if (Path1Panel.Path1Complete() == true && Path2Panel.Path2Complete() == true){
-						intBuffer = intBuffer + 1;
-						if (intBuffer >= intBufferMax){
-							// Check if path 3 is completed by another player or not. If it is, skip path 3.
-							if (netPanel.blnPath3CompleteByPartner == false) {
-								netPanel.SendMessage(strSystemMessageLabel + "Path 3 completed.");
-							}						
+					intBuffer = intBuffer + 1;
+					if (intBuffer >= intBufferMax){
+						// Check if path 3 is completed by another player or not. If it is, skip path 3.
+						if (netPanel.blnPath3CompleteByPartner == false) {
+							netPanel.SendMessage(strSystemMessageLabel + "Path 3 completed.");
+						}
+						// Check which is the next panel to show						
+						if (Path2Panel.Path2Complete() == false && netPanel.blnPath2CompleteByPartner == false) {
+							InvisiblePanel();		
+							Tran2Pane1.setVisible(true);
+							thePanel.revalidate();
+							thePanel.repaint();
+						} else if (Path1Panel.Path1Complete() == false && netPanel.blnPath1CompleteByPartner == false) {
+							InvisiblePanel();
+							Tran1Pane1.setVisible(true);
+						} else {
 							InvisiblePanel();
 							Tran4Pane1.setVisible(true);
 							thePanel.repaint();
-						}
-					} else if (Path1Panel.Path1Complete() == false) {
-						InvisiblePanel();
-						Tran1Pane1.setVisible(true);
-					} else if (Path2Panel.Path2Complete() == false) {
-						InvisiblePanel();
-						Tran2Pane1.setVisible(true);
-					}
+						}					
+					}			
 				} else {
 					intBuffer = 0;
 				}								
@@ -279,6 +312,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}	
 				}				
 			} else if (Tran5Pane1.isVisible() == true){
+				// Show the game over animation
 				GameTimer.stop();
 				Tran5Pane1.intTranTime = Tran5Pane1.intTranTime + 1;
 				if (Tran5Pane1.intTranTime <= 250){
@@ -292,11 +326,13 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 			}			
 			thePanel.repaint();
 		} else if (evt.getSource() == GameTimer) {
+			// Set the game time in 10 mins. If the players cannot complete in 10 mins, it shows game over panel.
 			intGameTimeSeconds = intGameTimeSeconds + 1;
 			intGameTimeMinutes = intGameTimeSeconds / 60;
 			intGameTimeRemainSeconds = intGameTimeSeconds % 60;
 			GameTimeLabel.setText("Game Time: " + String.format("%02d:%02d", intGameTimeMinutes, intGameTimeRemainSeconds));			
 			if (intGameTimeMinutes == 10 && intGameTimeRemainSeconds == 0){
+				// Show game over panel
 				InvisiblePanel();
 				Tran5Pane1.setVisible(true);
 				GameTimeLabel.setVisible(false);
@@ -341,6 +377,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		}
 		thePanel.repaint();
 	}  
+	// Invisible all panels
 	public void InvisiblePanel() {
 		IntroPanel.setVisible(false);
 		Tran1Pane1.setVisible(false);
