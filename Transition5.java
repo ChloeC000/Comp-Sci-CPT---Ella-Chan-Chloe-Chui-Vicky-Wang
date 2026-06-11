@@ -15,7 +15,7 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.*;
 
-public class Transition4 extends JPanel{
+public class Transition5 extends JPanel{
 	// Properties
 	// Create the transition screen and the 2 animated dialog boxes
 	BufferedImage imgBackground = null;
@@ -34,8 +34,8 @@ public class Transition4 extends JPanel{
 		// Create the screen
 		// Create the transition screen and the 2 animated dialog boxes
 		g.drawImage(imgBackground, 0, 0, null);
-		g.drawImage(imgDialogBox1, intPos1X, 100, null);
-		g.drawImage(imgDialogBox2, intPos2X, 150, null);
+		g.drawImage(imgDialogBox1, intPos1X, 150, null);
+		g.drawImage(imgDialogBox2, intPos2X, 180, null);
 		g.setFont(new Font("Arial", Font.BOLD, 30));  
 		// Display the CPT info
 		g.drawString("ICS4U1b Computer Science CPT", intPos1X + 50, 500);
@@ -44,13 +44,13 @@ public class Transition4 extends JPanel{
 	}
 	
 	// Constructor
-	public Transition4(){
+	public Transition5(){
 		super();		
 		try{			
 			// Create the transition screen and the 2 animated dialog boxes
-			imgBackground = ImageIO.read(new File("./Images/EndingTransition.png"));
-			imgDialogBox1 = ImageIO.read(new File("./Images/EndTranDialog1.png"));
-			imgDialogBox2 = ImageIO.read(new File("./Images/EndTranDialog2.png"));
+			imgBackground = ImageIO.read(new File("./Images/GameOverTransition.png"));
+			imgDialogBox1 = ImageIO.read(new File("./Images/GameOverTranDialog1.png"));
+			imgDialogBox2 = ImageIO.read(new File("./Images/GameOverTranDialog2.png"));
 		}catch(IOException e){
 			System.out.println("Unable to transitiona image.");
 		}	

@@ -17,6 +17,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class NetPanel implements ActionListener{  
+  String strSystemMessageLabel = "SYSTEM_dsSKj34554fdDs37sg24355546uW|";    // Network message label. The long suffix serves as a secret code to prevent players from impersonating the system by simply typing SYSTEM: at the beginning of a message
+  // Let the system set if the paths are completed by another players. If it is, the current player can skip that path.
+  boolean blnPath1CompleteByPartner;
+  boolean blnPath2CompleteByPartner;
+  boolean blnPath3CompleteByPartner;
+  String strReceivedMessage = "";
   String strRole;   // strRole will be used to show the player role (Server or Clinet)
   JFrame theFrame;  // Create the network message frame
   JPanel thePanel;  // Create the network message panel
@@ -93,16 +99,22 @@ public class NetPanel implements ActionListener{
       }      
     }else if(evt.getSource() == sendText){
       if(SuperSocket != null){
-		dtNow = LocalDateTime.now();  // Create the timestamp before sending the network message
-        String timestamp = dtNow.format(dtFormat);
-        SuperSocket.sendText(strRole + " " + dtNow.format(dtFormat) + ": " + sendText.getText());   // Send the text to the other parties (not yourself) belong to the server IP address and port no.
-        // Add the player's message to his/her own message received textarea
-        recievedText.append(strRole + " " + dtNow.format(dtFormat) + ": " + sendText.getText() + "\n");     // Get the text message sent from SuperSocket.sendText(sendText.getText());
-        recievedText.setCaretPosition(recievedText.getDocument().getLength());   // The caret position (setCaretPosition) is the location of the cursor inside a text component. This line set the cursor to the last position of the text field. recievedText.getDocument().getLength() returns the no. of char of recievedText. Use this no. with setCaretPosition means set the cursor to the position of the last char.
-        sendText.setText("");        
+		SendMessage(sendText.getText());    
       }
     }else if(evt.getSource() == SuperSocket){         // The defualt event of the SuperSocketMaster is receiving message
-      recievedText.append(SuperSocket.readText() + "\n");     // Get the text message sent from SuperSocket.sendText(sendText.getText());
+	  if (SuperSocket.readText().contains(strSystemMessageLabel)){
+		  strReceivedMessage = SuperSocket.readText().replace(strSystemMessageLabel, "");
+		  if (strReceivedMessage.contains("Path 1")) {
+			  blnPath1CompleteByPartner = true;
+		  } else if (strReceivedMessage.contains("Path 2")) {
+			  blnPath2CompleteByPartner = true;
+		  } else if (strReceivedMessage.contains("Path 3")) {
+			  blnPath3CompleteByPartner = true;
+		  }
+	  } else {
+		  strReceivedMessage = SuperSocket.readText();
+	  }	  
+      recievedText.append(strReceivedMessage + "\n");     // Get the text message sent from SuperSocket.sendText(sendText.getText());
       recievedText.setCaretPosition(recievedText.getDocument().getLength());   // The caret position (setCaretPosition) is the location of the cursor inside a text component. This line set the cursor to the last position of the text field. recievedText.getDocument().getLength() returns the no. of char of recievedText. Use this no. with setCaretPosition means set the cursor to the position of the last char.
     }else if(evt.getSource() == discBut){
       serverBut.setEnabled(true); 
@@ -133,6 +145,19 @@ public class NetPanel implements ActionListener{
 	int intPos = sendText.getCaretPosition();
 	sendText.setText(sendText.getText().substring(0, intPos) + strEmoji + sendText.getText().substring(intPos));
 	sendText.requestFocusInWindow();
+  }
+  // Send the network message
+  // Attach the player role (Server/Client) and timestamp to the begining of the message and check if the player is connecting to the network
+  public void SendMessage(String strMsg){
+	if (discBut.isEnabled() == true){
+		dtNow = LocalDateTime.now();  // Create the timestamp before sending the network message
+		String timestamp = dtNow.format(dtFormat);
+		SuperSocket.sendText(strRole + " " + dtNow.format(dtFormat) + ": " + strMsg);   // Send the text to the other parties (not yourself) belong to the server IP address and port no.
+		// Add the player's message to his/her own message received textarea and remove the system label when displaying on the screen
+		recievedText.append(strRole + " " + dtNow.format(dtFormat) + ": " + strMsg.replace(strSystemMessageLabel, "") + "\n");
+		recievedText.setCaretPosition(recievedText.getDocument().getLength());   // The caret position (setCaretPosition) is the location of the cursor inside a text component. This line set the cursor to the last position of the text field. recievedText.getDocument().getLength() returns the no. of char of recievedText. Use this no. with setCaretPosition means set the cursor to the position of the last char.
+		sendText.setText("");  
+	}      
   }
   
   public NetPanel(){

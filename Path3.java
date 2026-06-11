@@ -258,7 +258,11 @@ public class Path3 extends JPanel implements ActionListener, MouseListener, Mous
 				}				
 			}
 			// Get and display the hint from the 2D array in the Model
-			TheTextArea.setText(Path3Data.GetData(strObjName, 5)); 		
+			if (blnRightFlow == true){
+				TheTextArea.setText(Path3Data.GetData(strObjName, 5));
+			} else {
+				TheTextArea.setText("The campfire keeps us warm.");
+			}				
 			imgTextBox.setVisible(true);				
 			TheTextArea.setVisible(true);
 			

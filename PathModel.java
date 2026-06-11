@@ -35,7 +35,6 @@ public class PathModel{
 	
 	//Methods
 	//Load csv file into array
-	/**Load csv file into array*/
 	public void loadArray(){
 		for(intCount1 = 0; intCount1< 7; intCount1++){
 			//Read each line once than split
@@ -53,8 +52,7 @@ public class PathModel{
 		}
 	}
 	
-	//Find the row of the object based of its name and return the value
-	/**Find the row of the object based of its name and return the value*/
+	//Read the row of the array and decide what puzzle/clue to do based on the csv file
 	public int AssignRow(String strObject){
 		//Read the first column of each row and match the object to it.
 		intCount1 = -1;
@@ -67,7 +65,6 @@ public class PathModel{
 		blnMatch = false;
 		return intCount1;
 	}
-	/**Assigns Action based of the row of the object*/
 	public boolean AssignAction(int intRow){
 		//Look if there is a puzzle assigned for that row
 		if(!strSequence[intRow][4].equals("none")){
@@ -77,7 +74,7 @@ public class PathModel{
 		}
 		return blnPuzzle;
 	}
-	/**Read the whole CSV file based on the path and store the data in the 2D array for path 3*/
+	// Read the whole CSV file based on the path and store the data in the 2D array
 	public void CreateArray(){
 		try{
 			ArrayList<String[]> rows = new ArrayList<String[]>();
@@ -109,7 +106,6 @@ public class PathModel{
 		}
 	}
 	// Return the value of the specific column of the 2D array based on the object name. The first parameter is the object name, the second parameter is the column ID that needs to check
-	/**Return the value of the specific column of the 2D array based on the object name. The first parameter is the object name, the second parameter is the column ID that needs to check*/
 	public String GetData(String strObj, int intReturnColID){
 		for (int r = 0; r < strData.length; r++) {
 			if (strData[r][0].equals(strObj)){
@@ -119,7 +115,6 @@ public class PathModel{
 		return "";
 	}
 	// Generate the random no. for the 3 beats in the beat game
-	/**Generate the random number for the 3 beats in the beat game*/
 	public void Game5Beat(){		
 		intBeat1 = (int)(Math.random() * 5 + 1); 
 		intBeat2 = (int)(Math.random() * 5 + 1); 
@@ -127,7 +122,6 @@ public class PathModel{
 	}	
 	
 	//Constructor
-	/**Constructor that takes the name of the csv file to run the methods*/
 	public PathModel(String strCurrentFile){		
 		// Read the CSV file passing from the Controller. The parameter is the CSV filename.
 		try{

@@ -82,7 +82,11 @@ public class Path2 extends JPanel implements ActionListener{
 				}				
 			}
 			// Get and display the hint from the 2D array in the Model
-			TheTextArea.setText(Path2Data.GetData(strObjName, 5)); 		
+			if (blnRightFlow == true){
+				TheTextArea.setText(Path2Data.GetData(strObjName, 5)); 
+			} else {
+				TheTextArea.setText("Look! There is a nest.");
+			}					
 			imgTextBox.setVisible(true);				
 			TheTextArea.setVisible(true);
 			

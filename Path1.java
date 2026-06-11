@@ -1,5 +1,13 @@
-//Path 1 View
+/*
+Course: ICS4U1b Computer Science
+Teacher: Mr. Alfred Ron Cadawas
+Memebers: Ella Chan, Chloe Chui, Vicky Wang
+Assignment Name: CPT
 
+This is the Path 1 program.
+*/
+
+// Import the swing and JComponents libaraies
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -74,7 +82,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	//Directions/Deer Puzzle
 	JButton btnExitDeer = new JButton(new ImageIcon("images/Exit Button.png"));
 	String strAnswerDeer = "";
-	JButton btnAnswer = new JButton("Answer");
+	JButton btnAnswer = new JButton(new ImageIcon("images/Deer Puzzle/AnswerButton.png"));
 	JButton btnWest = new  JButton(new ImageIcon("images/Deer Puzzle/West Key.png"));
 	JButton btnNorth = new  JButton(new ImageIcon("images/Deer Puzzle/North Key.png"));
 	JButton btnSouth = new  JButton(new ImageIcon("images/Deer Puzzle/South Key.png"));
@@ -90,7 +98,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		g.drawImage(imgPath1Background, 0, 0, null);
 	}
 	
-	//Transition screen
+	//Transition
 	public void Transition(){
 		TransitionScreen.setVisible(true);
 		TheTextArea.setText("When you look back, you watch the deer stagger to its feet. Its movement is sluggish and it seems wary but you can sense it wants to convey something."); 		
@@ -99,7 +107,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	}
 	
 	//Puzzles
-	//Reset Card Puzzle by turning all cards back to the "front" side
+	//Reset Card Puzzle
 	public void ResetCard(){
 		btnCard1.setIcon(new ImageIcon("images/cards/Card1.png"));
 		btnCard2.setIcon(new ImageIcon("images/cards/Card2.png"));
@@ -118,9 +126,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	public void CardPuzzle(){
 		//Disable all other buttons temporarily
 		ActionEnabled = false;
-		btnExitCards.setVisible(true);	//Add the ability to exit the puzzle
+		btnExitCards.setVisible(true);
 		btnExitCards.setEnabled(true);
-		//Draw the top Row of cards
+		//Top Row
 		btnCard6.setVisible(true);
 		btnCard6.setEnabled(true);
 		btnCard1.setVisible(true);
@@ -129,7 +137,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		btnCard9.setEnabled(true);
 		btnCard5.setVisible(true);
 		btnCard5.setEnabled(true);
-		//Draw the second row of cards
+		//Second Row
 		btnCard8.setVisible(true);
 		btnCard8.setEnabled(true);
 		btnCard10.setVisible(true);
@@ -138,7 +146,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		btnCard3.setEnabled(true);
 		btnCard12.setVisible(true);
 		btnCard12.setEnabled(true);
-		//Draw the bottom row of cards
+		//Bottom Row
 		btnCard2.setVisible(true);
 		btnCard2.setEnabled(true);
 		btnCard4.setVisible(true);
@@ -151,8 +159,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	//Deer/Directions Puzzle
 	public void DirectionPuzzle(){	//Disable other buttons and set the puzzle components to visible
 		ActionEnabled = false;
-		btnAnswer.setVisible(true);	
-		btnExitDeer.setVisible(true);	//Exit the puzzle
+		btnAnswer.setVisible(true);
+		btnExitDeer.setVisible(true);
 		btnWest.setVisible(true);
 		btnNorth.setVisible(true);
 		btnSouth.setVisible(true);
@@ -169,9 +177,11 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		//If the deer body button is clicked: This is the first object
 		if(evt.getSource() == btnDeerBody && ActionEnabled == true){
 			intObjectRow = Model1.AssignRow("deer body");		//Figure out on which line of the csv file the object is on
+			//System.out.println(intObjectRow);
 			
 			if(blnDeerBody == false){
 				blnDeerBody = Model1.AssignAction(intObjectRow); 	//Check if the object has a puzzle if it has never been clicked before
+				//System.out.println(blnDeerBody);
 			}
 			if(blnDeerBody == true){ 							//After getting a up to date status, check if it is okay to display the clue
 				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 		//If so, get clue for the array
@@ -180,7 +190,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				//Unlock the next object
 				if (DeerComplete == false){
 					strNextObject = Model1.strSequence[intObjectRow][6];			//Get next object
-					DeerComplete = true; 				//So the next object only gets update once, if it has not been done before
+					DeerComplete = true; 				//So the next object only gets update once if it has not been done before
 				}
 			}
 			
@@ -194,8 +204,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 				if (HuntingComplete == false){
-					strNextObject = Model1.strSequence[intObjectRow][6];			//Get next object once this one is complete
-					HuntingComplete = true; 				
+					strNextObject = Model1.strSequence[intObjectRow][6];			//Get next object
+					HuntingComplete = true; 				//So the next object only gets update once if it has not been done before
 				}
 			}else{														//If the object has not been unlocked, give alternate clue
 				TheTextArea.setText("Looking at the rifle, you find nothing of note. Better not touch it for now, it could be dangerous"); 		
@@ -211,7 +221,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
-				if(BagComplete == false){	//Unlock next object
+				if(BagComplete == false){
 					strNextObject = Model1.strSequence[intObjectRow][6];	
 					BagComplete = true;
 					//Transition
@@ -231,7 +241,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setVisible(true);
 				CardPuzzle();
 			}else{														
-				TheTextArea.setText("It's a rabbit! Or is it a hare? It's sitting on a pack of cards.");  //If the object has not been unlocked yet, give this text instead		
+				TheTextArea.setText("It's a rabbit! Or is it a hare? It's sitting on a pack of cards."); 		
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 			}			
@@ -246,9 +256,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				}
 			}
 		 }
-		 //If the burrow is clicked
+		 
 		 if(evt.getSource() == btnBurrow && ActionEnabled == true){
-			if(strNextObject.equals("tree burrow") || blnBurrow == true){	//Burrow Object: What to do if the object has been unlocked
+			if(strNextObject.equals("tree burrow") || blnBurrow == true){	//What to do if the object has been unlocked
 				intObjectRow = Model1.AssignRow("tree burrow");
 				blnBurrow = Model1.AssignAction(intObjectRow);
 				TheTextArea.setText(Model1.strSequence[intObjectRow][5]); 
@@ -264,8 +274,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setVisible(true);
 			}			
 		 }
-		 //If the squirrel is clicked
-		  if(evt.getSource() == btnSquirrel && ActionEnabled == true){	
+		  if(evt.getSource() == btnSquirrel && ActionEnabled == true){
 			if(strNextObject.equals("squirrel") || blnSquirrel == true){	
 				intObjectRow = Model1.AssignRow("squirrel");
 				blnSquirrel = Model1.AssignAction(intObjectRow);
@@ -282,11 +291,11 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				TheTextArea.setVisible(true);
 			}			
 		 }
-		 //Standing deer object
+		 
 		  if(evt.getSource() == btnDeerStand && ActionEnabled == true){
 			intObjectRow = Model1.AssignRow("deer");			
 			if(strNextObject.equals("deer") && blnDeerStanding != true){ 			//if they have not yet solved the puzzle yet, give them the puzzle by making it visible
-				TheTextArea.setText("It still seems unwell but there is nothing you can do to help, except..."); //Provide alternate clue		
+				TheTextArea.setText("It still seems unwell but there is nothing you can do to help, except..."); 		
 				imgTextBox.setVisible(true);				
 				TheTextArea.setVisible(true);
 				//Puzzle
@@ -300,7 +309,8 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 				if (DeerStandingComplete == false){
 					strNextObject = Model1.strSequence[intObjectRow][6];
 					DeerStandingComplete = true;
-					Path1Complete = true;	//Complete this path
+					Path1Complete = true;
+					//System.out.println(strNextObject);
 				}
 			}
 		 }
@@ -437,12 +447,13 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		 if(evt.getSource() == btnCard12){
 			  if(intCardNum == 11){		//Puzzle is solved!
 				 btnCard12.setIcon(CardBack);
-				 blnHare = true;
+				 // Set the game 1 is completed
 				 blnGame1Completed = true;
-				 TheTextArea.setText("In your minds eye, you see a pack of the cards. It appears you've put them in the correct order."); 	//Indicate the puzzle is solved	
+				 blnHare = true;
+				 TheTextArea.setText("In your minds eye, you see a pack of the cards. It appears you've put them in the correct order."); 		
 				 imgTextBox.setVisible(true);				
 				 TheTextArea.setVisible(true);
-				 HatLabel.setVisible(true);	//Show the magicians hat
+				 HatLabel.setVisible(true);
 			 }else{
 				 intCardNum = 0;
 				 ResetCard();
@@ -451,9 +462,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		 
 		 //Directions Puzzle Below
 		 if(evt.getSource() == btnWest){
-			 strAnswerDeer = strAnswerDeer +" West";	//Append the user input to the answer string that can be compared to the correct answer
+			 strAnswerDeer = strAnswerDeer +" West";
 			 //System.out.println(strAnswerDeer);
-			 TheTextArea.setText("Your answer is: " + strAnswerDeer);	//Append the user input to the text box so they can see what they put in
+			 TheTextArea.setText("Your answer is: " + strAnswerDeer);
 			 imgTextBox.setVisible(true);				
 			 TheTextArea.setVisible(true);
 		 }else if(evt.getSource() == btnNorth){
@@ -474,20 +485,21 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 			 TheTextArea.setText("Your answer is: " + strAnswerDeer);
 			 imgTextBox.setVisible(true);				
 			 TheTextArea.setVisible(true);
-		 }else if(evt.getSource() == btnAnswer){	//trigger button to check if the inputed answer is correct
-			 if(strAnswerDeer.equals(Model1.strSequence[6][4])){	//If the answer inputed by the user is the same as the answer specified in the csv --> the answer is correct; allow the user to move on
+		 }else if(evt.getSource() == btnAnswer){
+			 if(strAnswerDeer.equals(Model1.strSequence[6][4])){	//If the answer correct, than allow the user to move on
 				 blnDeerStanding = true;
-				 TheTextArea.setText("Though you've solved his journey, it seems the owner of this journal has also dissapeared. You wonder if you could use this journal to escape somehow."); 	//Indicate puzzle is solved
+				 // Set the game 2 is completed
+				 blnGame2Completed = true;
+				 TheTextArea.setText("Though you've solved his journey, it seems the owner of this journal has also dissapeared. You wonder if you could use this journal to escape somehow."); 		
 				 imgTextBox.setVisible(true);				
 				 TheTextArea.setVisible(true);
-				 blnGame2Completed = true;
 			 }else{	//If incorrect, then reset the answer
 				 strAnswerDeer = "";
 				 TheTextArea.setText("Your answer is: " + strAnswerDeer);
 			 }
 		 }
 		 
-		 //Exit the direction puzzle, make all puzzle components invisible and re-enable object buttons
+		 //Exit the direction puzzle
 		 if(evt.getSource() == btnExitDeer){
 			ActionEnabled = true;
 			btnAnswer.setVisible(false);
@@ -527,7 +539,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 	}
 	public void mouseExited(MouseEvent evt){
 	}
-	public boolean Path1Complete() {	//Check if path 1 is complete
+	public boolean Path1Complete() {
 		if (blnGame1Completed == true && blnGame2Completed == true) {
 			return true;
 		} else {
@@ -552,7 +564,7 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		//Load array
 		Model1.loadArray();
 		
-		//Text Area/Box
+		//Text Area
 		imgTextBox.setBounds(26,520,908, 155);		//Drawing of the text box
 		TheTextArea.setBounds(115,555,750,120);
 		TheTextArea.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -728,8 +740,10 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		this.add(CompassLabelImage);
 		
 		//Answer
-		btnAnswer.setBounds(470,90,80,30);
+		btnAnswer.setBounds(445,70,128,50);
 		btnAnswer.addActionListener(this);
+		btnAnswer.setContentAreaFilled(false);
+		btnAnswer.setBorderPainted(false);
 		btnAnswer.setVisible(false);
 		this.add(btnAnswer);
 		
@@ -741,9 +755,9 @@ public class Path1 extends JPanel implements ActionListener, MouseListener{
 		btnExitDeer.addActionListener(this);
 		this.add(btnExitDeer);
 		
-		///////////////////////////////////////////
+		//////////////////////////////////////////////
 		//End of Puzzle section: Draw the objects//
-		///////////////////////////////////////////
+		//////////////////////////////////////////////
 		//Deer Body
 		btnDeerBody.setBounds(Integer.parseInt(Model1.strSequence[0][1]), Integer.parseInt(Model1.strSequence[0][2]), 502, 138);	//Get the object location from the csv file
 		btnDeerBody.setContentAreaFilled(false);		//Make the button background invisible

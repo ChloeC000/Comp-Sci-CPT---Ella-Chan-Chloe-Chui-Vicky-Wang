@@ -19,6 +19,11 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 	// Set the transition screen objects
 	int intBuffer = 0;
 	int intBufferMax = 150;
+	int intGameTimeSeconds = 0;
+	int intGameTimeMinutes;
+	int intGameTimeRemainSeconds;
+
+	String strSystemMessageLabel = "SYSTEM_dsSKj34554fdDs37sg24355546uW|";
 	JButton Path1But;
 	JButton Path2But;
 	JButton Path3But;
@@ -27,6 +32,9 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
     JPanel thePanel;
     // Set the game to 60 frames per second
     Timer ImageTimer = new Timer(1000/60, this);    
+    // Set the game available time
+    Timer GameTimer = new Timer(1000, this);  
+    JLabel GameTimeLabel;
     // Create the network message, intro, game path, help, and transition panels
     Intro IntroPanel;
     NetPanel netPanel;
@@ -37,8 +45,8 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
     Transition2 Tran2Pane1;
     Transition3 Tran3Pane1;
     Transition4 Tran4Pane1;
+    Transition5 Tran5Pane1;
     Help HelpPanel;
-    TimerPanel TimerPane;
     
 	public void actionPerformed(ActionEvent evt){
 		if (evt.getSource() == Path1But) {
@@ -51,24 +59,27 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Tran3Pane1.setVisible(false);
             Path3Panel.setVisible(false);
             Tran4Pane1.setVisible(false);
-            //Add and start timer
-            Path1Panel.add(TimerPane);
-            TimerPane.Timer.start();
+            Tran5Pane1.setVisible(false);
 			thePanel.revalidate();
 			thePanel.repaint();
-        } else if (evt.getSource() == Path2But || (evt.getSource() == Path1Panel.btnExitDeer && Path1Panel.Path1Complete() == true)) {
+        } else if (evt.getSource() == Path2But || evt.getSource() == Path1Panel.btnExitDeer) {
 			// Direct activate path 2 screen by the shortcut key or when Path 1 is completed
-			IntroPanel.setVisible(false);
-			Tran1Pane1.setVisible(false);
-            Path1Panel.setVisible(false);
-            Tran2Pane1.setVisible(true);
-            Path2Panel.setVisible(false);
-            Tran3Pane1.setVisible(false);
-            Path3Panel.setVisible(false);
-            Tran4Pane1.setVisible(false);
-            Path2Panel.add(TimerPane);
-			thePanel.revalidate();
-			thePanel.repaint();
+			if (evt.getSource() == Path2But || (evt.getSource() == Path1Panel.btnExitDeer && Path1Panel.Path1Complete() == true)) {
+				if (netPanel.blnPath1CompleteByPartner == false && Path1Panel.Path1Complete() == true) {
+					netPanel.SendMessage(strSystemMessageLabel + "Path 1 completed.");
+				}
+				IntroPanel.setVisible(false);
+				Tran1Pane1.setVisible(false);
+				Path1Panel.setVisible(false);
+				Tran2Pane1.setVisible(true);
+				Path2Panel.setVisible(false);
+				Tran3Pane1.setVisible(false);
+				Path3Panel.setVisible(false);
+				Tran4Pane1.setVisible(false);
+				Tran5Pane1.setVisible(false);
+				thePanel.revalidate();
+				thePanel.repaint();
+			}			
 		} else if (evt.getSource() == Path3But) {
 			// Direct activate path 3 screen by the shortcut key
 			IntroPanel.setVisible(false);
@@ -79,8 +90,8 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
             Tran3Pane1.setVisible(true);
             Path3Panel.setVisible(false);
             Tran4Pane1.setVisible(false);
+            Tran5Pane1.setVisible(false);
             Path3Panel.ResetView();
-            Path3Panel.add(TimerPane);
 			thePanel.revalidate();
 			thePanel.repaint();
 		} else if (evt.getSource() == netPanel.helpBut) {
@@ -124,6 +135,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 			// Control the path 1 transition screen animation and then open path 1 screen
 			} else if (Tran1Pane1.isVisible() == true){
 				Tran1Pane1.intTranTime = Tran1Pane1.intTranTime + 1;
+				GameTimer.start();
 				if (Tran1Pane1.intTranTime <= 250){
 					if (Tran1Pane1.intPos1X <= 150){
 						Tran1Pane1.intPos1X = Tran1Pane1.intPos1X + 3;
@@ -133,15 +145,27 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}	
 				} else {
 					Tran1Pane1.setVisible(false);
-					Path1Panel.setVisible(true);
-					Path1Panel.add(TimerPane);
-					TimerPane.Timer.start();
+					if (netPanel.blnPath1CompleteByPartner == true){
+						InvisiblePanel();
+						Tran2Pane1.setVisible(true);
+					} else {
+						InvisiblePanel();
+						Path1Panel.setVisible(true);
+					}					
 				}				
 			// Check if the path 1 is compleated and open the path 2 transition screen
 			} else if (Path1Panel.isVisible() == true){
-				if (Path1Panel.Path1Complete == true){
+				GameTimer.start();
+				Path1But.setIcon(new ImageIcon("./images/Path1ButtonOn.png"));
+				Path2But.setIcon(new ImageIcon("./images/Path2Button.png"));
+				Path3But.setIcon(new ImageIcon("./images/Path3Button.png"));
+				if (Path1Panel.Path1Complete() == true || netPanel.blnPath1CompleteByPartner == true){
 					intBuffer = intBuffer + 1;
-					if (intBuffer >= intBufferMax){
+					if (intBuffer >= intBufferMax){		
+						if (netPanel.blnPath1CompleteByPartner == false) {
+							netPanel.SendMessage(strSystemMessageLabel + "Path 1 completed.");
+						}
+						InvisiblePanel();		
 						Tran2Pane1.setVisible(true);
 						thePanel.revalidate();
 						thePanel.repaint();
@@ -151,6 +175,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 				}			
 			// Control the path 2 transition screen animation and then open path 2 screen
 			} else if (Tran2Pane1.isVisible() == true){
+				GameTimer.start();
 				Tran2Pane1.intTranTime = Tran2Pane1.intTranTime + 1;
 				if (Tran2Pane1.intTranTime <= 250){
 					if (Tran2Pane1.intPos1X <= 150){
@@ -161,14 +186,28 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}	
 				} else {
 					Tran2Pane1.setVisible(false);
-					Path2Panel.setVisible(true);
+					if (netPanel.blnPath2CompleteByPartner == true){
+						InvisiblePanel();
+						Tran3Pane1.setVisible(true);
+					} else {
+						InvisiblePanel();
+						Path2Panel.setVisible(true);
+					}					
 				} 				
 			// Check if the path 2 is compleated and open the path 3 transition screen
 			} else if (Path2Panel.isVisible() == true){
-				if (Path2Panel.Path2Complete() == true){
+				GameTimer.start();
+				Path1But.setIcon(new ImageIcon("./images/Path1Button.png"));
+				Path2But.setIcon(new ImageIcon("./images/Path2ButtonOn.png"));
+				Path3But.setIcon(new ImageIcon("./images/Path3Button.png"));
+				if (Path2Panel.Path2Complete() == true || netPanel.blnPath2CompleteByPartner == true){					
 					intBuffer = intBuffer + 1;
 					if (intBuffer >= intBufferMax){
-						Path2Panel.setVisible(false);			
+						// Check if path 2 is completed by another player or not. If it is, skip path 2.
+						if (netPanel.blnPath2CompleteByPartner == false) {
+							netPanel.SendMessage(strSystemMessageLabel + "Path 2 completed.");
+						}						
+						InvisiblePanel();
 						Tran3Pane1.setVisible(true);
 						Path3Panel.ResetView();
 						thePanel.revalidate();
@@ -179,6 +218,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 				}			
 			// Control the path 3 transition screen animation and then open path 3 screen
 			} else if (Tran3Pane1.isVisible() == true){
+				GameTimer.start();
 				Tran3Pane1.intTranTime = Tran3Pane1.intTranTime + 1;
 				if (Tran3Pane1.intTranTime <= 250){
 					if (Tran3Pane1.intPos1X <= 150){
@@ -189,25 +229,46 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 					}	
 				} else {
 					Tran3Pane1.setVisible(false);
-					Path3Panel.setVisible(true);
+					if (netPanel.blnPath3CompleteByPartner == true){
+						InvisiblePanel();
+						Tran4Pane1.setVisible(true);
+					} else {
+						InvisiblePanel();
+						Path3Panel.ResetView();
+						Path3Panel.setVisible(true);
+					}						
 				}				
 			// Check if the path 3 is compleated and open the ending screen
-			} else if (Path3Panel.isVisible() == true){				
-				if (Path3Panel.Path3Complete() == true){
-					intBuffer = intBuffer + 1;
-					if (intBuffer >= intBufferMax){
-						Path3Panel.setVisible(false);			
-						Tran4Pane1.setVisible(true);
-						Path1But.setVisible(false);
-						Path2But.setVisible(false);
-						Path3But.setVisible(false);
-						thePanel.repaint();
+			} else if (Path3Panel.isVisible() == true){		
+				GameTimer.start();
+				Path1But.setIcon(new ImageIcon("./images/Path1Button.png"));
+				Path2But.setIcon(new ImageIcon("./images/Path2Button.png"));
+				Path3But.setIcon(new ImageIcon("./images/Path3ButtonOn.png"));		
+				if (Path3Panel.Path3Complete() == true || netPanel.blnPath3CompleteByPartner == true){
+					if (Path1Panel.Path1Complete() == true && Path2Panel.Path2Complete() == true){
+						intBuffer = intBuffer + 1;
+						if (intBuffer >= intBufferMax){
+							// Check if path 3 is completed by another player or not. If it is, skip path 3.
+							if (netPanel.blnPath3CompleteByPartner == false) {
+								netPanel.SendMessage(strSystemMessageLabel + "Path 3 completed.");
+							}						
+							InvisiblePanel();
+							Tran4Pane1.setVisible(true);
+							thePanel.repaint();
+						}
+					} else if (Path1Panel.Path1Complete() == false) {
+						InvisiblePanel();
+						Tran1Pane1.setVisible(true);
+					} else if (Path2Panel.Path2Complete() == false) {
+						InvisiblePanel();
+						Tran2Pane1.setVisible(true);
 					}
 				} else {
 					intBuffer = 0;
 				}								
 			// Control the ending transition screen animation
 			} else if (Tran4Pane1.isVisible() == true){
+				GameTimer.stop();
 				Tran4Pane1.intTranTime = Tran4Pane1.intTranTime + 1;
 				if (Tran4Pane1.intTranTime <= 250){
 					if (Tran4Pane1.intPos1X <= 150){
@@ -217,8 +278,34 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 						Tran4Pane1.intPos2X = Tran4Pane1.intPos2X -2;						
 					}	
 				}				
+			} else if (Tran5Pane1.isVisible() == true){
+				GameTimer.stop();
+				Tran5Pane1.intTranTime = Tran5Pane1.intTranTime + 1;
+				if (Tran5Pane1.intTranTime <= 250){
+					if (Tran5Pane1.intPos1X <= 150){
+						Tran5Pane1.intPos1X = Tran5Pane1.intPos1X + 3;
+					}
+					if (Tran5Pane1.intPos2X >= 600){
+						Tran5Pane1.intPos2X = Tran5Pane1.intPos2X -2;						
+					}
+				}
 			}			
 			thePanel.repaint();
+		} else if (evt.getSource() == GameTimer) {
+			intGameTimeSeconds = intGameTimeSeconds + 1;
+			intGameTimeMinutes = intGameTimeSeconds / 60;
+			intGameTimeRemainSeconds = intGameTimeSeconds % 60;
+			GameTimeLabel.setText("Game Time: " + String.format("%02d:%02d", intGameTimeMinutes, intGameTimeRemainSeconds));			
+			if (intGameTimeMinutes == 10 && intGameTimeRemainSeconds == 0){
+				InvisiblePanel();
+				Tran5Pane1.setVisible(true);
+				GameTimeLabel.setVisible(false);
+				Path1But.setVisible(false);
+				Path2But.setVisible(false);
+				Path3But.setVisible(false);
+			} else if (intGameTimeMinutes >= 9) {
+				GameTimeLabel.setForeground(Color.RED);    
+			}
 		}
 	}	
 	public void mousePressed(MouseEvent evt) {
@@ -235,7 +322,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		// If the player clicks the deer, close the intro and show the path 1 transition screen
 		if (IntroPanel.isVisible() == true && HelpPanel.isVisible() == false) {
 			if ((evt.getX() >= 472 && evt.getX() <= 522 && evt.getY() >= 434 && evt.getY() <= 589) || (evt.getX() >=500 && evt.getX() <= 620 && evt.getY() >= 491 && evt.getY() < 580)) {
-				IntroPanel.setVisible(false);
+				InvisiblePanel();
 				Tran1Pane1.setVisible(true);
 			}		
 		}
@@ -254,6 +341,17 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		}
 		thePanel.repaint();
 	}  
+	public void InvisiblePanel() {
+		IntroPanel.setVisible(false);
+		Tran1Pane1.setVisible(false);
+		Path1Panel.setVisible(false);
+		Tran2Pane1.setVisible(false);
+		Path2Panel.setVisible(false);
+		Tran3Pane1.setVisible(false);
+		Path3Panel.setVisible(false);
+		Tran4Pane1.setVisible(false);
+		Tran5Pane1.setVisible(false);
+	}
 	public MainGame(){
 		// Controller links the View
 		// Create the main window
@@ -280,10 +378,12 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
                 }
             }
         }
-        );    
-        //Create the timer Panel
-        TimerPane = new TimerPanel();
-        TimerPane.setBounds(0,0,100,50);   
+        );
+        GameTimeLabel = new JLabel("");
+        GameTimeLabel.setBounds(10, 0, 200, 22);  
+        GameTimeLabel.setFont(new Font("Arial", Font.PLAIN, 22));      
+        GameTimeLabel.setForeground(Color.WHITE);        
+        thePanel.add(GameTimeLabel);
         
         // Add the help panel
         HelpPanel = new Help();
@@ -291,7 +391,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         HelpPanel.BackBut.addActionListener(this);
         thePanel.add(HelpPanel);
         
-        // Path 1 shortcut key
+        // Add Path 1 shortcut key
         Path1But =  new JButton(new ImageIcon("./images/Path1Button.png"));
         Path1But.setBounds(10, 660, 128, 50);
         Path1But.setContentAreaFilled(false);		//Make the button background invisible
@@ -299,7 +399,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         Path1But.addActionListener(this);
         thePanel.add(Path1But);
         
-        // Path 2 shortcut key
+        // Add Path 2 shortcut key
         Path2But = new JButton(new ImageIcon("./images/Path2Button.png"));
         Path2But.setBounds(160, 660, 128, 50);
         Path2But.setContentAreaFilled(false);		
@@ -307,7 +407,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         Path2But.addActionListener(this);
         thePanel.add(Path2But);
         
-        // Path 3 shortcut key
+        // Add Path 3 shortcut key
         Path3But = new JButton(new ImageIcon("./images/Path3Button.png"));
         Path3But.setBounds(310, 660, 128, 50);
         Path3But.setContentAreaFilled(false);		
@@ -357,6 +457,11 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
         Tran4Pane1 = new Transition4();
         Tran4Pane1.setBounds(0, 0, intGameWidth, intGameHeight);
         thePanel.add(Tran4Pane1);
+        
+        // Add the transition 5 (game over) panel
+        Tran5Pane1 = new Transition5();
+        Tran5Pane1.setBounds(0, 0, intGameWidth, intGameHeight);
+        thePanel.add(Tran5Pane1);
              
         // Show the intro panel as the first screen
         HelpPanel.setVisible(false);
@@ -370,6 +475,7 @@ public class MainGame implements ActionListener, MouseListener, MouseMotionListe
 		thePanel.setComponentZOrder(Path3But, 0);
         theFrame.setVisible(true);
         ImageTimer.start();
+        GameTimer.stop();
 	}
   
     public static void main(String[] args) {
